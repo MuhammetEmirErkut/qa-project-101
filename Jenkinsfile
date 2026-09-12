@@ -20,6 +20,11 @@ pipeline {
         SELENIUM_REMOTE_URL = 'http://selenium-hub:4444'
     }
 
+    // Tools configuration - Automatically installs and configures Maven
+    tools {
+        maven 'Maven_3.9.6'
+    }
+
     // Trigger pipeline on weekday schedule (Nightly regression at 02:00 AM UTC)
     triggers {
         cron('0 2 * * 1-5')
