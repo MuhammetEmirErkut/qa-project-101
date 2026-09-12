@@ -3,7 +3,12 @@ package com.hepsiburada.qa.config;
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
 
-@Sources({"classpath:config/config.properties", "classpath:config.properties"})
+@Sources({
+    "system:properties",
+    "system:env",
+    "classpath:config/config.properties",
+    "classpath:config.properties"
+})
 public interface ConfigReader extends Config {
     @Key("browser")
     @DefaultValue("chrome")
