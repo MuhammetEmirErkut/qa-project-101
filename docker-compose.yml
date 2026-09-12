@@ -1,15 +1,40 @@
 services:
+  # =============================================================================
+  # 1. Jenkins CI/CD Controller
+  # =============================================================================
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins-qa
+    user: root
+    privileged: true
+    ports:
+      - "8080:8080"   # Jenkins Web UI
+      - "50000:50000" # Jenkins Agent Port
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - qa-network
+
+  # =============================================================================
+  # 2. Selenium Grid Hub (Webdriver Router)
+  # =============================================================================
   selenium-hub:
     image: selenium/hub:4.21.0
     container_name: selenium-hub
     platform: linux/amd64
     ports:
-      - "4444:4444"
+      - "4444:4444"   # Selenium Grid Webdriver Endpoint & UI
     environment:
       - GRID_MAX_SESSION=16
       - GRID_BROWSER_TIMEOUT=120
       - GRID_TIMEOUT=120
+    networks:
+      - qa-network
 
+  # =============================================================================
+  # 3. Chrome Browser Node (with Live VNC stream on port 7900)
+  # =============================================================================
   chrome-node:
     image: selenium/node-chrome:4.21.0
     container_name: selenium-node-chrome
@@ -27,8 +52,13 @@ services:
       - SCREEN_HEIGHT=1080
       - SCREEN_DEPTH=24
     ports:
-      - "7900:7900"
+      - "7900:7900"   # Live Browser Stream: http://localhost:7900 (pwd: secret)
+    networks:
+      - qa-network
 
+  # =============================================================================
+  # 4. Firefox Browser Node
+  # =============================================================================
   firefox-node:
     image: selenium/node-firefox:4.21.0
     container_name: selenium-node-firefox
@@ -45,3 +75,12 @@ services:
       - SCREEN_WIDTH=1920
       - SCREEN_HEIGHT=1080
       - SCREEN_DEPTH=24
+    networks:
+      - qa-network
+
+networks:
+  qa-network:
+    driver: bridge
+
+volumes:
+  jenkins_home:
