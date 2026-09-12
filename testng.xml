@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Hepsiburada Test Suite" verbose="1" parallel="methods" thread-count="3">
+    <listeners>
+        <listener class-name="com.hepsiburada.qa.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Smoke and Functional Tests">
+        <packages>
+            <package name="com.hepsiburada.qa.tests.*"/>
+        </packages>
+    </test>
+</suite>

@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group = 'com.sahibinden.qa'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+def seleniumVersion = '4.21.0'
+def testngVersion = '7.10.2'
+def webdriverManagerVersion = '5.8.0'
+def allureVersion = '2.27.0'
+def ownerVersion = '1.0.12'
+def log4jVersion = '2.23.1'
+def jacksonVersion = '2.17.1'
+def lombokVersion = '1.18.32'
+
+dependencies {
+    // ==================== SELENIUM WEBDRIVER ====================
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
+
+    // ==================== TEST RUNNER (TESTNG) ====================
+    testImplementation "org.testng:testng:${testngVersion}"
+
+    // ==================== REPORTING (ALLURE) ====================
+    testImplementation "io.qameta.allure:allure-testng:${allureVersion}"
+
+    // ==================== CONFIGURATION & TEST DATA ====================
+    implementation "org.aeonbits.owner:owner:${ownerVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+
+    // ==================== LOGGING (LOG4J2 & SLF4J) ====================
+    implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4jVersion}"
+
+    // ==================== LOMBOK ====================
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+test {
+    useTestNG() {
+        suites 'testng.xml'
+    }
+    systemProperty 'allure.results.directory', "${buildDir}/allure-results"
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+allure {
+    version = allureVersion
+    autoconfigure = true
+    aspectjweaver = true
+}

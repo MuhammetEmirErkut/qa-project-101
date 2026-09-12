@@ -1,0 +1,10 @@
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/config/ConfigReader.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/drivers/BrowserType.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/drivers/DriverFactory.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/base/BasePage.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/cart/CartPage.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/home/HomePage.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/home/components/CookieBannerComponent.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/login/LoginPage.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/pdp/ProductDetailPage.java
+/Users/erkut/projects/qa-project-101/src/main/java/com/hepsiburada/qa/pages/search/SearchResultPage.java
