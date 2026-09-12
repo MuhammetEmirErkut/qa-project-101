@@ -25,9 +25,9 @@ pipeline {
         maven 'Maven_3.9.6'
     }
 
-    // Trigger pipeline on weekday schedule (Nightly regression at 02:00 AM UTC)
+    // Trigger pipeline automatically every 3 minutes for continuous testing
     triggers {
-        cron('0 2 * * 1-5')
+        pollSCM('H/2 * * * *')
     }
 
     // Pipeline Execution Stages
