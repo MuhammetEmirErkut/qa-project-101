@@ -7,9 +7,14 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'TEST_TYPE', choices: ['LOAD', 'STRESS', 'SPIKE', 'SOAK'], description: 'Koşturulacak Test Profili')
-        string(name: 'HOST', defaultValue: 'localhost', description: 'Hedef API Host')
+        choice(name: 'TEST_TYPE', choices: ['SMOKE', 'LOAD', 'STRESS', 'SPIKE', 'SOAK'], description: 'Koşturulacak Test Profili')
+        string(name: 'HOST', defaultValue: 'mock-api', description: 'Hedef API Host (Docker Network içinde: "mock-api" veya "localhost")')
         string(name: 'PORT', defaultValue: '3001', description: 'Hedef API Port')
+    }
+
+    environment {
+        JMETER_VERSION = '5.6.3'
+        JMETER_DIR = '/var/jenkins_home/tools/apache-jmeter-5.6.3'
     }
 
     triggers {
@@ -25,18 +30,22 @@ pipeline {
             }
         }
 
-        stage('Verify or Start Mock API') {
+        stage('Ensure JMeter Runtime') {
             steps {
-                echo 'Ensuring Mock Backend API is reachable...'
+                echo 'Verifying Apache JMeter binary inside Jenkins environment...'
                 sh """
-                    # If mock api is not already running on port, start it in background
-                    if ! nc -z ${params.HOST} ${params.PORT} 2>/dev/null; then
-                        echo "Starting local Mock API in background..."
-                        node performance-test/mock-api/server.js &
-                        sleep 3
+                    if [ ! -f "${JMETER_DIR}/bin/jmeter" ]; then
+                        echo "Downloading Apache JMeter ${JMETER_VERSION} into persistent storage..."
+                        mkdir -p /var/jenkins_home/tools
+                        curl -fsSL https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz -o /tmp/jmeter.tgz
+                        tar -xzf /tmp/jmeter.tgz -C /var/jenkins_home/tools/
+                        rm -f /tmp/jmeter.tgz
+                        chmod +x ${JMETER_DIR}/bin/jmeter
+                        echo "Apache JMeter successfully installed at ${JMETER_DIR}"
                     else
-                        echo "Mock API is already UP and reachable on ${params.HOST}:${params.PORT}"
+                        echo "Apache JMeter is already cached at ${JMETER_DIR}"
                     fi
+                    ${JMETER_DIR}/bin/jmeter -v
                 """
             }
         }
@@ -55,8 +64,8 @@ pipeline {
                         # Clean previous run results
                         rm -rf performance-test/jmeter/results.jtl performance-test/jmeter/html-report
 
-                        # Run JMeter in Non-GUI mode with dynamic profile
-                        jmeter -n \
+                        # Run JMeter in Non-GUI mode with dynamic profile and target
+                        ${JMETER_DIR}/bin/jmeter -n \
                             -t performance-test/jmeter/ecommerce_api_test_plan.jmx \
                             -q ${profileFile} \
                             -Jhost=${params.HOST} \

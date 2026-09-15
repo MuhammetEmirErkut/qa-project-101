@@ -90,13 +90,13 @@ Bu iş; Web UI testlerini Docker Selenium Grid üzerindeki Chrome/Firefox taray�
 
 ## 4. Item 2: JMeter Performans & Yük Test Hattı (`02-Performance-Testing-Pipeline`)
 
-Bu iş; Mock E-Commerce API üzerinde Load, Stress, Spike veya Soak testlerini koşturur ve zengin HTML Dashboard üretir.
+Bu iş; Mock E-Commerce API üzerinde **Smoke**, **Load**, **Stress**, **Spike** veya **Soak** testlerinin tamamını tek çatı altında koşturur ve zengin HTML Dashboard üretir.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │ ITEM 2: 02-Performance-Testing-Pipeline                                │
 │ • Dosya: ci/pipelines/Jenkinsfile.perf                                 │
-│ • Parametreler: TEST_TYPE (LOAD, STRESS, SPIKE, SOAK)                  │
+│ • Parametreler: TEST_TYPE (SMOKE, LOAD, STRESS, SPIKE, SOAK)           │
 │ • Tetikleyici: Her Gece 02:00 (Cron: H 2 * * 1-5)                      │
 │ • Çıktı: Interaktif JMeter HTML Dashboard & APDEX Skorları             │
 └────────────────────────────────────────────────────────────────────────┘
@@ -115,33 +115,7 @@ Bu iş; Mock E-Commerce API üzerinde Load, Stress, Spike veya Soak testlerini k
 5. **`Save`** butonuna tıklayın.
 
 > [!TIP]
-> İlk koşumu yaptıktan sonra Jenkins bu dosyadaki parametreleri (`TEST_TYPE`, `HOST`, `PORT`) otomatik olarak algılar ve sol menüdeki **"Build"** butonu kendiliğinden **"Build with Parameters"** butonuna dönüşür!
-
----
-
-## 5. Item 3: Hızlı Smoke & Sağlık Kontrol Hattı (`03-Smoke-Verification-Pipeline`)
-
-Bu iş; sistemin ayakta olduğunu doğrulamak için her 15 dakikada bir 1 dakikalık hızlı bir sağlık/smoke kontrolü yapar.
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│ ITEM 3: 03-Smoke-Verification-Pipeline                                 │
-│ • Dosya: ci/pipelines/Jenkinsfile.smoke                                │
-│ • Tetikleyici: Her 15 dakikada bir (Cron: H/15 * * * *)                │
-│ • Çıktı: Yeşil/Kırmızı Durum Bildirimi (1 Kullanıcı / 10 Saniye)       │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-### 🖱️ Adım Adım Oluşturma:
-1. Jenkins ana sayfasında **`New Item`** butonuna tıklayın.
-2. **Enter an item name:** `03-Smoke-Verification-Pipeline` yazın.
-3. Tip olarak **`Pipeline`** seçin ve **`OK`** butonuna basın.
-4. **Pipeline Sekmesi:**
-   * **Definition:** `Pipeline script from SCM`
-   * **SCM:** `Git`
-   * **Repository URL:** Git repo adresi.
-   * **Script Path:** **`ci/pipelines/Jenkinsfile.smoke`** yazın.
-5. **`Save`** butonuna tıklayın.
+> İlk koşumu yaptıktan sonra Jenkins bu dosyadaki parametreleri (`TEST_TYPE`, `HOST`, `PORT`) otomatik olarak algılar ve sol menüdeki **"Build"** butonu kendiliğinden **"Build with Parameters"** butonuna dönüşür! İster hızlı 1 dakikalık `SMOKE`, ister 200 kişilik `STRESS` testini tek tıkla seçip başlatabilirsiniz.
 
 ---
 
