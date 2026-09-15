@@ -1,0 +1,72 @@
+# =============================================================================
+# Git Ignore Configuration for QA Test Automation Project (qa-project-101)
+# =============================================================================
+
+# --- Maven Build & Compiled Classes ---
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# --- Test Reports, Failure Artifacts & Diagnostic Logs ---
+allure-results/
+allure-report/
+surefire-reports/
+failures/
+screenshots/
+dom-snapshots/
+*.dumpstream
+
+# --- Apache JMeter Logs, Execution Results & HTML Dashboards ---
+jmeter.log
+*.jtl
+*.jtl.*
+performance-test/jmeter/results.jtl
+performance-test/jmeter/html-report/
+performance-test/jmeter/*.log
+
+# --- Node / NPM (Mock API dependencies) ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- JetBrains IDEs (IntelliJ IDEA) ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Visual Studio Code ---
+.vscode/
+*.code-workspace
+
+# --- Eclipse IDE ---
+.classpath
+.project
+.settings/
+
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Windows System Files ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Docker & CI Secrets / Local Temp ---
+*.local
+.env
+.env.local

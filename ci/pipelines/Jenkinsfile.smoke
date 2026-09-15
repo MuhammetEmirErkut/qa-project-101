@@ -1,0 +1,48 @@
+// =============================================================================
+// Jenkins Pipeline: Quick Smoke & Health Verification Suite
+// Location: ci/pipelines/Jenkinsfile.smoke
+// =============================================================================
+
+pipeline {
+    agent any
+
+    triggers {
+        // Her 15 dakikada bir otomatik sağlık kontrolü
+        cron('H/15 * * * *')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Smoke Test') {
+            steps {
+                echo 'Running quick 1-minute baseline smoke verification...'
+                sh """
+                    rm -rf performance-test/jmeter/results.jtl performance-test/jmeter/html-report
+
+                    jmeter -n \
+                        -t performance-test/jmeter/ecommerce_api_test_plan.jmx \
+                        -Jhost=localhost \
+                        -Jport=3001 \
+                        -Jthreads=1 \
+                        -JrampUp=1 \
+                        -Jduration=10 \
+                        -l performance-test/jmeter/results.jtl
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Smoke check is GREEN! 🟢'
+        }
+        failure {
+            echo 'Smoke check is RED! 🔴'
+        }
+    }
+}

@@ -23,12 +23,14 @@ This repository contains an enterprise-level UI Test Automation framework develo
 
 ## 🚦 Quick Start Guide
 
-### 1. Start Selenium Grid
+### 1. Start Infrastructure (Jenkins, Selenium Grid & Mock API)
 ```bash
-docker compose up -d
+docker compose -f ci/docker-compose.yml up -d
 ```
+* **Jenkins UI:** [http://localhost:8080](http://localhost:8080)
 * **Grid Console:** [http://localhost:4444](http://localhost:4444)
 * **Live VNC Viewer (Optional):** [http://localhost:7900](http://localhost:7900) *(Password: `secret`)*
+* **Mock API:** [http://localhost:3001](http://localhost:3001)
 
 ### 2. Run Tests
 ```bash
@@ -48,15 +50,27 @@ mvn allure:serve
 mvn allure:report
 ```
 
-### 4. Stop Selenium Grid
+### 4. Stop Infrastructure
 ```bash
-docker compose down
+docker compose -f ci/docker-compose.yml down
 ```
 
 ---
+
 
 ## 📋 Failure Artifacts
 When a test fails, the framework automatically produces:
 1. **Screenshots:** Saved under `target/failures/screenshots/`
 2. **AI-Ready Error Reports:** Saved under `target/failures/reports/<test_name>_error.txt`
 3. **Allure Attachments:** Screenshots, HTML DOM snapshots, and error summaries are directly visible in Allure.
+
+---
+
+## 📚 Guides & Documentation
+* 🚀 [Automation Architecture Guide](docs/AUTOMATION_GUIDE.md)
+* ⚡ [JMeter Performance, Load & Spike Testing Guide](docs/JMETER_PERFORMANCE_TESTING_GUIDE.md)
+* 🤖 [Jenkins CI/CD Architecture Guide](docs/JENKINS_CI_CD_GUIDE.md)
+* 🛠️ [Jenkins Item (Job) Creation & Setup Guide](docs/JENKINS_ITEM_CREATION_GUIDE.md)
+* 🛒 [Cart & PDP Tests Guide](docs/CART_AND_PDP_GUIDE.md)
+
+

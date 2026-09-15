@@ -78,6 +78,19 @@ services:
     networks:
       - qa-network
 
+  # =============================================================================
+  # 5. Mock E-Commerce API (for Isolated Performance & Load Tests)
+  # =============================================================================
+  mock-api:
+    build:
+      context: ../performance-test/mock-api
+      dockerfile: Dockerfile
+    container_name: mock-ecommerce-api
+    ports:
+      - "3001:3001"   # Mock REST API Endpoint: http://localhost:3001
+    networks:
+      - qa-network
+
 networks:
   qa-network:
     driver: bridge

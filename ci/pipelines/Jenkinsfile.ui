@@ -1,0 +1,77 @@
+// =============================================================================
+// Jenkins Pipeline: UI Test Automation (Selenium Grid + TestNG + Allure)
+// Location: ci/pipelines/Jenkinsfile.ui
+// =============================================================================
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Hedef Web Tarayıcısı')
+        choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Headless Modda Çalıştır')
+        string(name: 'THREAD_COUNT', defaultValue: '3', description: 'Paralel Thread Sayısı')
+        string(name: 'SUITE_XML', defaultValue: 'testng.xml', description: 'TestNG Suite XML Dosyası')
+    }
+
+    environment {
+        SELENIUM_REMOTE_URL = 'http://selenium-hub:4444'
+    }
+
+    tools {
+        maven 'Maven_3.9.6'
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+        stage('Checkout Source') {
+            steps {
+                echo 'Checking out latest test automation code...'
+                checkout scm
+            }
+        }
+
+        stage('Environment Check') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+            }
+        }
+
+        stage('Execute UI Tests') {
+            steps {
+                echo "Running UI Tests with Browser=${params.BROWSER}, Headless=${params.HEADLESS}, Threads=${params.THREAD_COUNT}"
+                sh """
+                    mvn clean test \
+                        -Dbrowser=${params.BROWSER} \
+                        -Dheadless=${params.HEADLESS} \
+                        -Dremote=true \
+                        -DgridUrl=${SELENIUM_REMOTE_URL} \
+                        -Dsurefire.suiteXmlFiles=${params.SUITE_XML}
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Archiving Allure Results and Publishing Report...'
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'target/allure-results']]
+            ])
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+        }
+        success {
+            echo 'UI Automation Tests Passed Successfully! 🚀'
+        }
+        failure {
+            echo 'UI Automation Tests Failed! ❌'
+        }
+    }
+}

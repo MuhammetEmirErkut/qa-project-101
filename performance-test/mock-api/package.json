@@ -1,0 +1,17 @@
+{
+  "name": "qa-mock-ecommerce-api",
+  "version": "1.0.0",
+  "description": "Realistic Mock E-Commerce API for JMeter Load, Stress, and Spike Performance Testing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["jmeter", "performance-testing", "mock-api", "load-testing", "qa"],
+  "author": "QA Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

@@ -1,0 +1,98 @@
+// =============================================================================
+// Jenkins Pipeline: JMeter Performance & Load Testing
+// Location: ci/pipelines/Jenkinsfile.perf
+// =============================================================================
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'TEST_TYPE', choices: ['LOAD', 'STRESS', 'SPIKE', 'SOAK'], description: 'Koşturulacak Test Profili')
+        string(name: 'HOST', defaultValue: 'localhost', description: 'Hedef API Host')
+        string(name: 'PORT', defaultValue: '3001', description: 'Hedef API Port')
+    }
+
+    triggers {
+        // Her gece saat 02:00'de otomatik Load Test koş (Pazartesi-Cuma)
+        cron('H 2 * * 1-5')
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out latest repository code...'
+                checkout scm
+            }
+        }
+
+        stage('Verify or Start Mock API') {
+            steps {
+                echo 'Ensuring Mock Backend API is reachable...'
+                sh """
+                    # If mock api is not already running on port, start it in background
+                    if ! nc -z ${params.HOST} ${params.PORT} 2>/dev/null; then
+                        echo "Starting local Mock API in background..."
+                        node performance-test/mock-api/server.js &
+                        sleep 3
+                    else
+                        echo "Mock API is already UP and reachable on ${params.HOST}:${params.PORT}"
+                    fi
+                """
+            }
+        }
+
+        stage('Execute JMeter Performance Tests') {
+            steps {
+                script {
+                    def profileFile = "performance-test/jmeter/profiles/${params.TEST_TYPE.toLowerCase()}.properties"
+                    echo "=========================================================="
+                    echo "🚀 Running JMeter ${params.TEST_TYPE} Test"
+                    echo "📁 Using Profile: ${profileFile}"
+                    echo "🎯 Target: http://${params.HOST}:${params.PORT}"
+                    echo "=========================================================="
+
+                    sh """
+                        # Clean previous run results
+                        rm -rf performance-test/jmeter/results.jtl performance-test/jmeter/html-report
+
+                        # Run JMeter in Non-GUI mode with dynamic profile
+                        jmeter -n \
+                            -t performance-test/jmeter/ecommerce_api_test_plan.jmx \
+                            -q ${profileFile} \
+                            -Jhost=${params.HOST} \
+                            -Jport=${params.PORT} \
+                            -l performance-test/jmeter/results.jtl \
+                            -e -o performance-test/jmeter/html-report
+                    """
+                }
+            }
+        }
+
+        stage('Publish Performance Dashboard') {
+            steps {
+                echo 'Publishing Interactive JMeter HTML Report to Jenkins UI...'
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'performance-test/jmeter/html-report',
+                    reportFiles: 'index.html',
+                    reportName: "JMeter ${params.TEST_TYPE} Performance Dashboard"
+                ])
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Archiving Raw JTL Execution Logs...'
+            archiveArtifacts artifacts: 'performance-test/jmeter/results.jtl', allowEmptyArchive: true, fingerprint: true
+        }
+        success {
+            echo "JMeter ${params.TEST_TYPE} Test Completed Successfully! 🚀"
+        }
+        failure {
+            echo "JMeter ${params.TEST_TYPE} Test Failed or SLA Violated! ❌ Check HTML Dashboard for details."
+        }
+    }
+}
