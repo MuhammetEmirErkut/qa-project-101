@@ -19,7 +19,8 @@ public class ProductDetailPage extends BasePage {
     private final By addToCartButton = By.cssSelector("button[id*='addToCart'], [data-test-id='addToCart'], button#addToCart, button[class*='addToCartButton'], button[class*='add-to-basket']");
     private final By addToCartButtonXpath = By.xpath("//button[@id='addToCart' or contains(@data-test-id, 'addToCart') or contains(@class, 'addToCart') or contains(., 'Sepete Ekle') or contains(., 'Sepete ekle')]");
     private final By goToCartButtonInModal = By.xpath("//button[contains(., 'Sepete git') or contains(., 'Sepete Git') or contains(., 'Sepetim')] | //a[contains(., 'Sepete git') or contains(., 'Sepete Git') or contains(., 'Sepetim') or contains(@href, 'checkout.hepsiburada.com')]");
-    private final By productPrice = By.cssSelector("[data-test-id='price-current-price'], [data-test-id='default-price'], span[class*='price'], div[class*='current-price']");
+    private final By productPrice = By.cssSelector("[data-test-id='price-current-price'], [data-test-id='default-price'], [data-test-id='price-wrapper'], span[class*='price'], div[class*='current-price'], div[class*='Price'], div[class*='price']");
+    private final By productPriceXpath = By.xpath("//*[@data-test-id='price-current-price' or @data-test-id='default-price'] | //*[contains(@class, 'currentPrice') or contains(@class, 'price') or contains(@class, 'Price')] | //*[contains(text(), 'TL') or contains(text(), '₺')]");
     private final By variantOptions = By.cssSelector("div[class*='variant'] button, div[class*='variant'] a, [data-test-id*='variant'], a[class*='variantBox'], button[class*='variantBox']");
     private final By wishlistButton = By.cssSelector("button[class*='like'], button[class*='heart'], button[class*='favorite'], [data-test-id*='favorite'], [data-test-id*='like'], svg[class*='like']");
     private final By wishlistButtonXpath = By.xpath("//button[contains(@class, 'like') or contains(@class, 'favorite') or contains(@aria-label, 'Beğen') or contains(@aria-label, 'Favori')] | //*[@data-test-id='favorite' or @data-test-id='like-button'] | //div[contains(@class, 'Heart')] | //*[contains(@class, 'customerAccount-Like')]");
@@ -120,12 +121,39 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Get product price as text")
     public String getProductPriceText() {
+        // Strategy 1: Standard CSS Locator
         try {
-            WebElement priceEl = wait.until(ExpectedConditions.visibilityOfElementLocated(productPrice));
-            return priceEl.getText().trim();
-        } catch (Exception e) {
-            return "";
+            WebDriverWait priceWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement priceEl = priceWait.until(ExpectedConditions.visibilityOfElementLocated(productPrice));
+            String text = priceEl.getText().trim();
+            if (!text.isEmpty()) {
+                return text;
+            }
+        } catch (Exception ignored) {
         }
+
+        // Strategy 2: XPath fallback
+        try {
+            WebElement xpathEl = driver.findElement(productPriceXpath);
+            String text = xpathEl.getText().trim();
+            if (!text.isEmpty()) {
+                return text;
+            }
+        } catch (Exception ignored) {
+        }
+
+        // Strategy 3: Search for elements containing currency symbol
+        try {
+            List<WebElement> priceCandidates = driver.findElements(By.xpath("//*[contains(text(), 'TL') or contains(text(), '₺')]"));
+            for (WebElement el : priceCandidates) {
+                if (el.isDisplayed() && !el.getText().trim().isEmpty()) {
+                    return el.getText().trim();
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+        return "";
     }
 
     @Step("Select product variant option: {variantText}")
