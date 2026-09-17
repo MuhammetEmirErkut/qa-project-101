@@ -1,0 +1,68 @@
+services:
+  # =============================================================================
+  # 1. Prometheus (Metrics TSDB Engine)
+  # =============================================================================
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: monitoring-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - qa-network
+
+  # =============================================================================
+  # 2. Node Exporter (Host/OS Hardware Metrics)
+  # =============================================================================
+  node-exporter:
+    image: prom/node-exporter:v1.7.0
+    container_name: monitoring-node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - qa-network
+
+  # =============================================================================
+  # 3. InfluxDB (JMeter Real-Time Performance DB)
+  # =============================================================================
+  influxdb:
+    image: influxdb:1.8-alpine
+    container_name: monitoring-influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=jmeter
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    networks:
+      - qa-network
+
+  # =============================================================================
+  # 4. Grafana (Unified Visualization Dashboard)
+  # =============================================================================
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: monitoring-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+      - influxdb
+    networks:
+      - qa-network
+
+networks:
+  qa-network:
+    name: qa-project-101_qa-network
+    external: true
+
+volumes:
+  influxdb_data:
+  grafana_data:

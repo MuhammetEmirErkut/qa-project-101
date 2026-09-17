@@ -69,6 +69,7 @@ When a test fails, the framework automatically produces:
 ## 📚 Guides & Documentation
 * 🚀 [Automation Architecture Guide](docs/AUTOMATION_GUIDE.md)
 * ⚡ [JMeter Performance, Load & Spike Testing Guide](docs/JMETER_PERFORMANCE_TESTING_GUIDE.md)
+* 📊 [Observability, APM, Prometheus & Live Grafana Guide](docs/GRAFANA_PROMETHEUS_OBSERVABILITY_GUIDE.md)
 * 🤖 [Jenkins CI/CD Architecture Guide](docs/JENKINS_CI_CD_GUIDE.md)
 * 🛠️ [Jenkins Item (Job) Creation & Setup Guide](docs/JENKINS_ITEM_CREATION_GUIDE.md)
 * 🛒 [Cart & PDP Tests Guide](docs/CART_AND_PDP_GUIDE.md)
