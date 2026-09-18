@@ -70,6 +70,7 @@ pipeline {
                             -q ${profileFile} \
                             -Jhost=${params.HOST} \
                             -Jport=${params.PORT} \
+                            -JinfluxdbUrl=http://influxdb:8086/write?db=jmeter \
                             -l performance-test/jmeter/results.jtl \
                             -e -o performance-test/jmeter/html-report
                     """
