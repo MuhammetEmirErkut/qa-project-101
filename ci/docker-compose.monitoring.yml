@@ -27,7 +27,7 @@ services:
   # 3. InfluxDB (JMeter Real-Time Performance DB)
   # =============================================================================
   influxdb:
-    image: influxdb:1.8-alpine
+    image: influxdb:1.8
     container_name: monitoring-influxdb
     ports:
       - "8086:8086"
