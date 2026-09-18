@@ -60,7 +60,7 @@ services:
 
 networks:
   qa-network:
-    name: qa-project-101_qa-network
+    name: qa-network
     external: true
 
 volumes:

@@ -95,6 +95,7 @@ services:
 
 networks:
   qa-network:
+    name: qa-network
     driver: bridge
 
 volumes:
