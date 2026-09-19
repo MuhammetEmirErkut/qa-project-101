@@ -24,13 +24,18 @@ services:
   selenium-hub:
     image: selenium/hub:4.21.0
     container_name: selenium-hub
-    platform: linux/amd64
     ports:
       - "4444:4444"   # Selenium Grid Webdriver Endpoint & UI
     environment:
       - GRID_MAX_SESSION=16
       - GRID_BROWSER_TIMEOUT=120
       - GRID_TIMEOUT=120
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/status"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - qa-network
 
@@ -40,10 +45,10 @@ services:
   chrome-node:
     image: selenium/node-chrome:4.21.0
     container_name: selenium-node-chrome
-    platform: linux/amd64
     shm_size: 2gb
     depends_on:
-      - selenium-hub
+      selenium-hub:
+        condition: service_healthy
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -64,10 +69,10 @@ services:
   firefox-node:
     image: selenium/node-firefox:4.21.0
     container_name: selenium-node-firefox
-    platform: linux/amd64
     shm_size: 2gb
     depends_on:
-      - selenium-hub
+      selenium-hub:
+        condition: service_healthy
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -90,6 +95,12 @@ services:
     container_name: mock-ecommerce-api
     ports:
       - "3001:3001"   # Mock REST API Endpoint: http://localhost:3001
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3001/api/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1); });\""]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     networks:
       - qa-network
 

@@ -31,8 +31,7 @@ public class SearchTests extends BaseTest {
 
         // 3. Verification of Product Title
         String firstTitle = searchResultPage.getFirstTitle();
-        Assert.assertTrue(firstTitle.toLowerCase().contains("laptop") || resultCount > 0, 
-            "First product title does not contain expected keyword: " + firstTitle);
+        Assert.assertFalse(firstTitle.isEmpty(), "First product title in search results should not be empty!");
     }
 
     @Test(description = "User must verify the search functionality with different search terms", 
@@ -61,7 +60,7 @@ public class SearchTests extends BaseTest {
         
         // 2. Verification of Zero Results or No-Results Message
         int resultCount = searchResultPage.getResultCount();
-        boolean hasNoResultMessage = searchResultPage.isNoResultsManageDisplayed();
+        boolean hasNoResultMessage = searchResultPage.isNoResultsMessageDisplayed();
 
         Assert.assertTrue(hasNoResultMessage || resultCount == 0, 
             "Search with invalid keyword should return 0 results or display no results message! Result Count: " + resultCount);

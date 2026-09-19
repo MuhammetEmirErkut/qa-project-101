@@ -2,7 +2,6 @@ package com.hepsiburada.qa.pages.home;
 
 import java.time.Duration;
 
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +13,8 @@ import com.hepsiburada.qa.pages.base.BasePage;
 import com.hepsiburada.qa.pages.home.components.CookieBannerComponent;
 import com.hepsiburada.qa.pages.login.LoginPage;
 import com.hepsiburada.qa.pages.search.SearchResultPage;
+
+import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
@@ -29,8 +30,12 @@ public class HomePage extends BasePage {
     }
 
     public void waitForHomePageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
-            .until(ExpectedConditions.presenceOfElementLocated(searchInput));
+        waitForPageToLoad();
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(searchInput));
+        } catch (Exception e) {
+            log.warn("Search input not immediately present on home page: {}", e.getMessage());
+        }
         handleCookies();
     }
 
@@ -38,9 +43,10 @@ public class HomePage extends BasePage {
         cookieBanner.acceptCookies();
     }
 
-    @Step("Search for a product")
+    @Step("Search for product: '{keyword}'")
     public SearchResultPage search(String keyword) {
         handleCookies();
+        log.info("Initiating search for keyword: '{}'", keyword);
 
         int maxRetries = 3;
         for (int i = 0; i < maxRetries; i++) {
@@ -52,23 +58,16 @@ public class HomePage extends BasePage {
                     jsClick(input);
                 }
 
-                try {
-                    Thread.sleep(400);
-                } catch (InterruptedException ignored) {
-                }
-
                 WebElement activeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInput));
                 activeInput.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
                 activeInput.sendKeys(keyword);
                 activeInput.sendKeys(Keys.ENTER);
+
                 return new SearchResultPage(driver);
             } catch (org.openqa.selenium.StaleElementReferenceException | org.openqa.selenium.ElementNotInteractableException e) {
+                log.warn("Retry {}/{} for search due to: {}", i + 1, maxRetries, e.getMessage());
                 if (i == maxRetries - 1) {
                     throw e;
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ignored) {
                 }
             }
         }
@@ -82,13 +81,14 @@ public class HomePage extends BasePage {
     @Step("Navigate to login page")
     public LoginPage goToLoginPage() {
         handleCookies();
+        log.info("Navigating to login page via user menu");
         try {
             WebElement accountBtn = wait.until(ExpectedConditions.elementToBeClickable(myAccountButton));
-            new org.openqa.selenium.interactions.Actions(driver).moveToElement(accountBtn).perform();
-            Thread.sleep(500);
+            hover(myAccountButton);
             WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(loginDropdownOption));
             jsClick(loginBtn);
         } catch (Exception e) {
+            log.warn("Dropdown navigation failed, directing directly to login URL: {}", e.getMessage());
             driver.get("https://giris.hepsiburada.com");
         }
         return new LoginPage(driver);

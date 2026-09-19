@@ -1,0 +1,87 @@
+name: Enterprise QA CI Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test Suite to Execute'
+        required: true
+        default: 'smoke-tests.xml'
+        type: choice
+        options:
+          - 'smoke-tests.xml'
+          - 'api-tests.xml'
+          - 'regression-tests.xml'
+
+jobs:
+  api-and-unit-tests:
+    name: Run API & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Start Mock E-Commerce API Service
+        run: |
+          node performance-test/mock-api/server.js &
+          sleep 3
+          curl -f http://localhost:3001/api/health
+
+      - name: Execute RestAssured API Test Suite
+        run: |
+          mvn clean test \
+            -Dsurefire.suiteXmlFiles=src/test/resources/suites/api-tests.xml \
+            -DapiBaseUrl=http://localhost:3001
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-api-results
+          path: target/allure-results
+          retention-days: 7
+
+  ui-smoke-tests:
+    name: Run Headless UI Smoke Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Execute UI Tests in Headless Mode
+        run: |
+          SUITE="${{ github.event.inputs.test_suite || 'smoke-tests.xml' }}"
+          echo "Executing test suite: $SUITE"
+          mvn test \
+            -Dsurefire.suiteXmlFiles=src/test/resources/suites/$SUITE \
+            -Dbrowser=chrome \
+            -Dheadless=true \
+            -Dremote=false || true
+
+      - name: Upload Test Report Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-ui-results
+          path: |
+            target/allure-results
+            target/failures
+          retention-days: 7

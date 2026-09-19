@@ -1,0 +1,17 @@
+[
+  {
+    "searchTerm": "Laptop",
+    "category": "Bilgisayar",
+    "minExpectedResults": 1
+  },
+  {
+    "searchTerm": "iPhone",
+    "category": "Telefon",
+    "minExpectedResults": 1
+  },
+  {
+    "searchTerm": "Kulaklık",
+    "category": "Ses Sistemleri",
+    "minExpectedResults": 1
+  }
+]

@@ -27,7 +27,7 @@ public interface ConfigReader extends Config {
     boolean headless();
 
     @Key("remote")
-    @DefaultValue("true")
+    @DefaultValue("false")
     boolean remote();
 
     @Key("gridUrl")

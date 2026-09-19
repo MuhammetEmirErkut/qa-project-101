@@ -35,8 +35,9 @@ public class LoginPage extends BasePage {
     }
 
     public void waitForLoginPageLoad() {
+        waitForPageToLoad();
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.or(
+            wait.until(ExpectedConditions.or(
                 ExpectedConditions.presenceOfElementLocated(emailInput),
                 ExpectedConditions.presenceOfElementLocated(loginButton)
             ));
@@ -45,6 +46,7 @@ public class LoginPage extends BasePage {
 
     @Step("Enter email: {email}")
     public LoginPage enterEmail(String email) {
+        log.info("Entering email: {}", email);
         WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput));
         input.click();
         input.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
@@ -54,6 +56,7 @@ public class LoginPage extends BasePage {
 
     @Step("Clear email input field")
     public LoginPage clearEmailInput() {
+        log.info("Clearing email input field");
         try {
             WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput));
             input.click();
@@ -64,6 +67,7 @@ public class LoginPage extends BasePage {
 
     @Step("Click login submit button")
     public LoginPage clickLoginButton() {
+        log.info("Clicking login submit button");
         try {
             WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(loginButton));
             jsClick(btn);
@@ -73,8 +77,13 @@ public class LoginPage extends BasePage {
         }
 
         try {
-            Thread.sleep(1500); 
-        } catch (InterruptedException ignored) {}
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            shortWait.until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOfElementLocated(errorMessage),
+                ExpectedConditions.urlContains("oauth"),
+                ExpectedConditions.urlContains("password")
+            ));
+        } catch (Exception ignored) {}
 
         return this;
     }
@@ -84,7 +93,9 @@ public class LoginPage extends BasePage {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement errorEl = shortWait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-            return errorEl.getText().trim();
+            String msg = errorEl.getText().trim();
+            log.info("Captured error message: {}", msg);
+            return msg;
         } catch (Exception e) {
             try {
                 return driver.findElement(By.xpath("//*[contains(text(), 'Geçerli bir e-posta')]")).getText().trim();

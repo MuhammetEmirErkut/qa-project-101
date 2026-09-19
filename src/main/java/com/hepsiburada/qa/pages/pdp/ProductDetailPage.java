@@ -41,8 +41,9 @@ public class ProductDetailPage extends BasePage {
     }
 
     public void waitForPageLoad() {
+        waitForPageToLoad();
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.or(
+            wait.until(ExpectedConditions.or(
                 ExpectedConditions.presenceOfElementLocated(productTitle),
                 ExpectedConditions.presenceOfElementLocated(addToCartButton),
                 ExpectedConditions.presenceOfElementLocated(addToCartButtonXpath)
@@ -66,6 +67,7 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Add product to cart")
     public ProductDetailPage addToCart() {
+        log.info("Adding product to cart");
         WebElement btn = null;
         try {
             btn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
@@ -84,8 +86,12 @@ public class ProductDetailPage extends BasePage {
         }
 
         try {
-            Thread.sleep(1500);
-        } catch (InterruptedException ignored) {
+            WebDriverWait postClickWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            postClickWait.until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOfElementLocated(goToCartButtonInModal),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Sepete eklendi') or contains(text(), 'Ürün sepete eklendi')]"))
+            ));
+        } catch (Exception ignored) {
         }
 
         return this;
@@ -93,6 +99,7 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Go to cart page")
     public CartPage goToCart() {
+        log.info("Navigating to cart from PDP");
         By[] locators = new By[] {
             goToCartButtonInModal,
             By.xpath("//button[contains(., 'Sepete git') or contains(., 'Sepete Git') or contains(., 'Sepetim')]"),
@@ -158,6 +165,7 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Select product variant option: {variantText}")
     public ProductDetailPage selectVariant(String variantText) {
+        log.info("Selecting product variant: {}", variantText);
         By specificVariant = By.xpath(
             "//button[contains(., '" + variantText + "')] | " +
             "//a[contains(., '" + variantText + "')] | " +
@@ -177,16 +185,13 @@ public class ProductDetailPage extends BasePage {
             }
         }
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ignored) {
-        }
-
+        waitForPageToLoad();
         return this;
     }
 
     @Step("Select first available alternative variant")
     public ProductDetailPage selectFirstAvailableAlternativeVariant() {
+        log.info("Selecting first available alternative variant");
         try {
             List<WebElement> variants = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(variantOptions));
             if (variants.size() > 1) {
@@ -194,7 +199,7 @@ public class ProductDetailPage extends BasePage {
             } else if (!variants.isEmpty()) {
                 jsClick(variants.get(0));
             }
-            Thread.sleep(2000);
+            waitForPageToLoad();
         } catch (Exception ignored) {
         }
         return this;
@@ -202,6 +207,7 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Click wishlist / like button")
     public ProductDetailPage clickWishlist() {
+        log.info("Clicking wishlist button");
         WebElement likeBtn = null;
         try {
             likeBtn = wait.until(ExpectedConditions.elementToBeClickable(wishlistButton));
@@ -217,11 +223,6 @@ public class ProductDetailPage extends BasePage {
             jsClick(likeBtn);
         } catch (Exception e) {
             likeBtn.click();
-        }
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException ignored) {
         }
 
         return this;
@@ -248,23 +249,18 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Open reviews and ratings tab")
     public ProductDetailPage openReviewsTab() {
+        log.info("Opening reviews tab");
         try {
             WebElement tab = wait.until(ExpectedConditions.presenceOfElementLocated(reviewsTab));
-            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", tab);
-            Thread.sleep(600);
+            scrollIntoView(tab);
             jsClick(tab);
         } catch (Exception e) {
             try {
                 WebElement fallbackTab = driver.findElement(By.xpath("//div[contains(@class, 'tab') or contains(@class, 'Tab')]//*[contains(text(), 'Değerlendirme')]"));
-                ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", fallbackTab);
+                scrollIntoView(fallbackTab);
                 jsClick(fallbackTab);
             } catch (Exception ignored) {
             }
-        }
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException ignored) {
         }
 
         return this;

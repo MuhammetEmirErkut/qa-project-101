@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_DIR">logs</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender with colored output -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %highlight{%-5level}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=cyan} %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- Rolling File Appender for persistent execution logs -->
+        <RollingFile name="FileAppender"
+                     fileName="${LOG_DIR}/automation.log"
+                     filePattern="${LOG_DIR}/automation-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Framework and Test Loggers -->
+        <Logger name="com.hepsiburada.qa" level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+
+        <!-- Selenium and 3rd Party Loggers (Quiet mode) -->
+        <Logger name="org.openqa.selenium" level="WARN" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+        <Logger name="io.github.bonigarcia" level="WARN" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <Logger name="org.apache.http" level="WARN" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -39,7 +39,7 @@ services:
       - qa-network
 
   # =============================================================================
-  # 4. Grafana (Unified Visualization Dashboard)
+  # 4. Grafana (Zero-Touch Provisioned Visualization Dashboard)
   # =============================================================================
   grafana:
     image: grafana/grafana:10.4.1
@@ -52,6 +52,9 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards/json:ro
     depends_on:
       - prometheus
       - influxdb
@@ -61,7 +64,7 @@ services:
 networks:
   qa-network:
     name: qa-network
-    external: true
+    driver: bridge
 
 volumes:
   influxdb_data:

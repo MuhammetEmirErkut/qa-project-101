@@ -1,0 +1,176 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "title": "🚀 Real-Time JMeter Performance Metrics",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-JMeter"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Active Threads",
+            "axisPlacement": "auto",
+            "fillOpacity": 20,
+            "lineWidth": 2
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max", "last"],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "query": "SELECT max(\"maxAT\") AS \"Max Active Users\", mean(\"meanAT\") AS \"Mean Active Users\" FROM \"jmeter\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Active Virtual Users (Threads)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-JMeter"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Throughput (RPS)",
+            "fillOpacity": 15,
+            "lineWidth": 2
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max", "last"],
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "query": "SELECT count(\"count\") / 5 AS \"Throughput (req/s)\" FROM \"jmeter\" WHERE \"statut\" = 'all' AND $timeFilter GROUP BY time(5s) fill(null)",
+          "rawQuery": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Throughput & Transaction Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "InfluxDB-JMeter"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Response Time (ms)",
+            "fillOpacity": 10,
+            "lineWidth": 2
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "max", "p90", "p95", "p99"],
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      },
+      "targets": [
+        {
+          "query": "SELECT mean(\"avg\") AS \"Avg Response Time\", percentile(\"pct90.0\", 90) AS \"90th Percentile\", percentile(\"pct95.0\", 95) AS \"95th Percentile\", percentile(\"pct99.0\", 99) AS \"99th Percentile\" FROM \"jmeter\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Response Times & Latency Percentiles",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["jmeter", "performance", "qa-101"],
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": ["1s", "5s", "10s", "30s", "1m"]
+  },
+  "timezone": "browser",
+  "title": "E-Commerce Performance & Load Test Dashboard",
+  "uid": "jmeter-ecommerce-dashboard",
+  "version": 1
+}

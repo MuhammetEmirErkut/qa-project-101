@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Mock E-Commerce REST API Test Suite" verbose="1">
+    <test name="API Tests - Authentication, Products and Cart">
+        <classes>
+            <class name="com.hepsiburada.qa.api.AuthApiTests"/>
+            <class name="com.hepsiburada.qa.api.ProductApiTests"/>
+            <class name="com.hepsiburada.qa.api.CartAndCheckoutApiTests"/>
+        </classes>
+    </test>
+</suite>

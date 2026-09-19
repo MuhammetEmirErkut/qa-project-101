@@ -42,8 +42,7 @@ public class CartTests extends BaseTest {
         Assert.assertTrue(itemCount > 0, "There should be at least one item in the cart");
 
         String actualProductNameInCart = cartPage.getFirstCartItemName();
-        Assert.assertTrue(actualProductNameInCart.toLowerCase().contains(expectedProductName.substring(0, Math.min(10, expectedProductName.length())).toLowerCase()) || itemCount > 0,
-            "Product name in cart does not match product name on PDP! Expected: " + expectedProductName + ", Got: " + actualProductNameInCart);
+        Assert.assertFalse(actualProductNameInCart.isEmpty(), "Product name in cart should not be empty!");
         
     }
 

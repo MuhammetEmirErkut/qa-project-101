@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +32,8 @@ import io.qameta.allure.Attachment;
 
 public class TestListener implements ITestListener, ISuiteListener {
 
+    private static final Logger log = LogManager.getLogger(TestListener.class);
+
     private static final String FAILURE_DIR = "target" + File.separator + "failures";
     private static final String SCREENSHOT_DIR = FAILURE_DIR + File.separator + "screenshots";
     private static final String REPORTS_DIR = FAILURE_DIR + File.separator + "reports";
@@ -38,6 +42,22 @@ public class TestListener implements ITestListener, ISuiteListener {
     @Override
     public void onStart(ITestContext context) {
         createDirectories();
+        log.info("========== TEST SUITE STARTED: {} ==========", context.getName());
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        log.info("🚀 STARTING TEST: {}.{}", result.getTestClass().getName(), result.getMethod().getMethodName());
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        log.info("✅ TEST PASSED: {}.{}", result.getTestClass().getName(), result.getMethod().getMethodName());
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        log.warn("⚠️ TEST SKIPPED: {}.{}", result.getTestClass().getName(), result.getMethod().getMethodName());
     }
 
     @Override
@@ -80,11 +100,11 @@ public class TestListener implements ITestListener, ISuiteListener {
         saveErrorReportToFile(errorReport, testIdentifier);
         attachTextToAllure("AI Error Report (Copyable)", errorReport);
 
-        System.err.println("================================================================================");
-        System.err.println("❌ TEST FAILED: " + result.getName());
-        System.err.println("📸 Screenshot: " + screenshotPath);
-        System.err.println("📝 Error Report File: " + REPORTS_DIR + File.separator + testIdentifier + "_error.txt");
-        System.err.println("================================================================================");
+        log.error("================================================================================");
+        log.error("❌ TEST FAILED: {}", result.getName());
+        log.error("📸 Screenshot: {}", screenshotPath);
+        log.error("📝 Error Report File: {}/{}_error.txt", REPORTS_DIR, testIdentifier);
+        log.error("================================================================================");
     }
 
     private byte[] captureScreenshot(WebDriver driver) {
@@ -92,7 +112,7 @@ public class TestListener implements ITestListener, ISuiteListener {
             try {
                 return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             } catch (Exception e) {
-                System.err.println("Error while capturing screenshot: " + e.getMessage());
+                log.error("Error while capturing screenshot: {}", e.getMessage());
             }
         }
         return new byte[0];
@@ -105,7 +125,7 @@ public class TestListener implements ITestListener, ISuiteListener {
             fos.write(screenshotBytes);
             return filePath;
         } catch (IOException e) {
-            System.err.println("Failed to write screenshot to file: " + e.getMessage());
+            log.error("Failed to write screenshot to file: {}", e.getMessage());
             return "Error: " + e.getMessage();
         }
     }
@@ -116,7 +136,7 @@ public class TestListener implements ITestListener, ISuiteListener {
         try (FileWriter writer = new FileWriter(filePath, StandardCharsets.UTF_8)) {
             writer.write(content);
         } catch (IOException e) {
-            System.err.println("Failed to save error report to file: " + e.getMessage());
+            log.error("Failed to save error report to file: {}", e.getMessage());
         }
     }
 
@@ -200,11 +220,10 @@ public class TestListener implements ITestListener, ISuiteListener {
             Path allureResultsDir = Paths.get("target", "allure-results");
             Files.createDirectories(allureResultsDir);
             Properties props = new Properties();
-            props.setProperty("Environment", "Test / Docker Grid");
+            props.setProperty("Environment", "QA / Automation");
             props.setProperty("Selenium.Version", "4.21.0");
             props.setProperty("OS", System.getProperty("os.name"));
             props.setProperty("Java.Version", System.getProperty("java.version"));
-            props.setProperty("Grid.Host", "http://localhost:4444");
 
             File envFile = allureResultsDir.resolve("environment.properties").toFile();
             try (FileOutputStream fos = new FileOutputStream(envFile)) {

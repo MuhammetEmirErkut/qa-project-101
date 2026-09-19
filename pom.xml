@@ -23,6 +23,8 @@
         <log4j.version>2.23.1</log4j.version>
         <jackson.version>2.17.1</jackson.version>
         <lombok.version>1.18.32</lombok.version>
+        <restassured.version>5.4.0</restassured.version>
+        <assertj.version>3.25.3</assertj.version>
     </properties>
 
     <dependencies>
@@ -31,13 +33,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
-        </dependency>
-
-        <!-- WebDriver binary management -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
         </dependency>
 
         <!-- ==================== TEST RUNNER (TESTNG) ==================== -->
@@ -52,6 +47,30 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+
+        <!-- ==================== API AUTOMATION (REST-ASSURED) ==================== -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <!-- ==================== ASSERTIONS (ASSERTJ) ==================== -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
         </dependency>
 
         <!-- ==================== CONFIGURATION & TEST DATA ==================== -->
@@ -147,6 +166,20 @@
                 <version>2.12.0</version>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
+                </configuration>
+            </plugin>
+
+            <!-- Checkstyle Static Code Analysis Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
                 </configuration>
             </plugin>
         </plugins>

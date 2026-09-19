@@ -70,7 +70,7 @@ public class SearchResultPage extends BasePage {
             wait.until(ExpectedConditions.elementToBeClickable(resultItems));
             click(resultItems);
         }
-        swtichToNewTab();
+        switchToNewTab();
         return new ProductDetailPage(driver);
     }
 
@@ -85,7 +85,7 @@ public class SearchResultPage extends BasePage {
         }
 
         try {
-            if (isDisplayed(resultCountLabel)) {
+            if (isDisplayed(resultCountLabel, 3)) {
                 String text = getText(resultCountLabel).replaceAll("[^0-9]", "");
                 if (!text.isEmpty()) {
                     return Integer.parseInt(text);
@@ -111,13 +111,18 @@ public class SearchResultPage extends BasePage {
         }
     }
 
-    @Step("Check if no results manager is displayed")
-    public boolean isNoResultsManageDisplayed() {
+    @Step("Check if no results message is displayed")
+    public boolean isNoResultsMessageDisplayed() {
         try {
-            return isDisplayed(noResultsMessage) || isDisplayed(noResultsContainer);
+            return isDisplayed(noResultsMessage, 5) || isDisplayed(noResultsContainer, 5);
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Deprecated
+    public boolean isNoResultsManageDisplayed() {
+        return isNoResultsMessageDisplayed();
     }
     
     @Step("Get no results message text from search result page")
@@ -260,10 +265,11 @@ public class SearchResultPage extends BasePage {
 
     private void waitForProductsReload(){
         try {
-            Thread.sleep(2500);
+            waitForPageToLoad();
             wait.until(ExpectedConditions.or(
                 ExpectedConditions.presenceOfElementLocated(allProductTitles),
-                ExpectedConditions.presenceOfElementLocated(resultItems)
+                ExpectedConditions.presenceOfElementLocated(resultItems),
+                ExpectedConditions.presenceOfElementLocated(noResultsMessage)
             ));
         } catch (Exception ignored) {
         }

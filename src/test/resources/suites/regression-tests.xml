@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Hepsiburada Full Regression Test Suite" verbose="1" parallel="methods" thread-count="3">
+    <listeners>
+        <listener class-name="com.hepsiburada.qa.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Regression Tests - Search and Filters">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.search.SearchTests"/>
+            <class name="com.hepsiburada.qa.tests.search.SearchFilterTests"/>
+        </classes>
+    </test>
+
+    <test name="Regression Tests - PDP and Cart">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.pdp.ProductDetailTests"/>
+            <class name="com.hepsiburada.qa.tests.cart.CartTests"/>
+        </classes>
+    </test>
+
+    <test name="Regression Tests - Authentication">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.login.LoginTests"/>
+        </classes>
+    </test>
+</suite>
