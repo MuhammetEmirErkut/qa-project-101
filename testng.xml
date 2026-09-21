@@ -7,7 +7,10 @@
 
     <test name="Smoke and Functional Tests">
         <packages>
-            <package name="com.hepsiburada.qa.tests.*"/>
+            <package name="com.hepsiburada.qa.tests.search"/>
+            <package name="com.hepsiburada.qa.tests.cart"/>
+            <package name="com.hepsiburada.qa.tests.pdp"/>
+            <package name="com.hepsiburada.qa.tests.login"/>
         </packages>
     </test>
 </suite>
