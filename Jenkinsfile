@@ -19,7 +19,7 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Web UI: Target browser for execution')
         choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Web UI: Run browser in headless mode')
         string(name: 'DEVICE_NAME', defaultValue: 'Medium_Phone', description: 'Mobile: Target device / emulator')
-        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://appium:4723/', description: 'Mobile: Appium Server URL')
+        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://192.168.1.106:4723/', description: 'Mobile: Appium Server URL')
         string(name: 'THREAD_COUNT', defaultValue: '2', description: 'Number of parallel execution threads')
     }
 

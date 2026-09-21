@@ -14,7 +14,7 @@ pipeline {
             'src/test/resources/suites/mobile-smoke-tests.xml',
             'src/test/resources/suites/mobile-regression-tests.xml'
         ], description: 'Koşturulacak TestNG Suite Dosyası')
-        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://host.docker.internal:4723/', description: 'Appium Sunucu Endpoint (Host Emülatör: http://host.docker.internal:4723/ | Docker İçi: http://appium:4723/)')
+        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://192.168.1.106:4723/', description: 'Appium Sunucu Endpoint (Mac IP: http://192.168.1.106:4723/ | Docker İçi: http://appium:4723/)')
     }
 
     environment {
