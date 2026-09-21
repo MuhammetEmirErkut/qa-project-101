@@ -16,7 +16,7 @@ public abstract class MobileBaseTest {
 
     @BeforeMethod
     public void setUp() {
-        config = ConfigFactory.create(MobileConfigReader.class);
+        config = ConfigFactory.create(MobileConfigReader.class, System.getProperties(), System.getenv());
         String platform = config.platform().trim().toUpperCase();
         MobileBrowserType browserType;
         
