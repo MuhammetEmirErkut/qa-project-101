@@ -67,6 +67,9 @@ public class TestListener implements ITestListener, ISuiteListener {
         String testIdentifier = testName + "_" + timestamp;
 
         WebDriver driver = DriverFactory.getDriver();
+        if (driver == null) {
+            driver = com.hepsiburada.qa.drivers.MobileDriverFactory.getDriver();
+        }
         String currentUrl = "N/A";
         String pageTitle = "N/A";
 

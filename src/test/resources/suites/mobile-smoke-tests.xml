@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Hepsiburada Mobile Web Smoke Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.hepsiburada.qa.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Mobile Smoke Tests - Critical User Journeys">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.mobile.search.MobileSearchTests">
+                <methods>
+                    <include name="testSearchProducts"/>
+                </methods>
+            </class>
+            <class name="com.hepsiburada.qa.tests.mobile.cart.MobileCartTests">
+                <methods>
+                    <include name="testAddProductToCart"/>
+                </methods>
+            </class>
+            <class name="com.hepsiburada.qa.tests.mobile.login.MobileLoginTests">
+                <methods>
+                    <include name="shouldShowErrorForInvalidEmailFormat"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

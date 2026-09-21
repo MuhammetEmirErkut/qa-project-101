@@ -117,6 +117,34 @@ Bu iş; Mock E-Commerce API üzerinde **Smoke**, **Load**, **Stress**, **Spike**
 > [!TIP]
 > İlk koşumu yaptıktan sonra Jenkins bu dosyadaki parametreleri (`TEST_TYPE`, `HOST`, `PORT`) otomatik olarak algılar ve sol menüdeki **"Build"** butonu kendiliğinden **"Build with Parameters"** butonuna dönüşür! İster hızlı 1 dakikalık `SMOKE`, ister 200 kişilik `STRESS` testini tek tıkla seçip başlatabilirsiniz.
 
+## 5. Item 3: Appium Mobil Web Test Hattı (`03-Mobile-Web-Pipeline`)
+
+Bu iş; Appium Server üzerinden mobil web testlerini (Android Chrome / iOS Safari) otomatik koşturur, mobil cihaz ekran görüntülerini ve Allure raporunu üretir.
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ ITEM 3: 03-Mobile-Web-Pipeline                                         │
+│ • Dosya: ci/pipelines/Jenkinsfile.mobile                               │
+│ • Parametreler: PLATFORM, DEVICE_NAME, BROWSER, SUITE_XML              │
+│ • Appium Sunucu: http://appium:4723/ (Docker İçi)                      │
+│ • Çıktı: Allure Mobile Test Report & Failure Screenshots               │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+### 🖱️ Adım Adım Oluşturma:
+1. Jenkins ana sayfasında **`New Item`** (Yeni Öğe) butonuna tıklayın.
+2. **Enter an item name:** `03-Mobile-Web-Pipeline` yazın.
+3. Tip olarak **`Pipeline`** seçin ve **`OK`** butonuna basın.
+4. **General & Build Triggers Sekmesi:**
+   * **Poll SCM** kutusunu işaretleyip `H/5 * * * *` yazabilirsiniz.
+5. **Pipeline Sekmesi (Sayfanın En Altı):**
+   * **Definition:** `Pipeline script from SCM` seçin.
+   * **SCM:** `Git` seçin.
+   * **Repository URL:** Projenizin Git repo adresini yazın.
+   * **Branches to build:** `*/main` (veya `*/master`).
+   * **Script Path:** ➡️ **`ci/pipelines/Jenkinsfile.mobile`** yazın!
+6. **`Save` (Kaydet)** butonuna tıklayın.
+
 ---
 
 ## 6. Parametrik Çalıştırma ve Raporları Görüntüleme

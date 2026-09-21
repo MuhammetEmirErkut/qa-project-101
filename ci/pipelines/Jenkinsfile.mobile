@@ -1,0 +1,98 @@
+// =============================================================================
+// Jenkins Pipeline: Mobile Web Automation (Appium 2.x + Android/iOS + Allure)
+// Location: ci/pipelines/Jenkinsfile.mobile
+// =============================================================================
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'PLATFORM', choices: ['ANDROID', 'IOS'], description: 'Hedef Mobil Platform')
+        string(name: 'DEVICE_NAME', defaultValue: 'Medium_Phone', description: 'Cihaz / Emülatör Adı (Örn: Medium_Phone, Pixel_7_API_34)')
+        choice(name: 'BROWSER', choices: ['Chrome', 'Safari'], description: 'Mobil Tarayıcı')
+        choice(name: 'SUITE_XML', choices: [
+            'src/test/resources/suites/mobile-smoke-tests.xml',
+            'src/test/resources/suites/mobile-regression-tests.xml'
+        ], description: 'Koşturulacak TestNG Suite Dosyası')
+        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://appium:4723/', description: 'Appium Sunucu Endpoint (Docker içi: http://appium:4723/ | Host: http://host.docker.internal:4723/)')
+    }
+
+    environment {
+        ALLURE_RESULTS_DIR = 'target/allure-results'
+    }
+
+    tools {
+        maven 'Maven_3.9.6'
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+        // -------------------------------------------------------------
+        // Stage 1: Checkout Source Code
+        // -------------------------------------------------------------
+        stage('Checkout Source') {
+            steps {
+                echo 'Pulling latest mobile test automation code from repository...'
+                checkout scm
+            }
+        }
+
+        // -------------------------------------------------------------
+        // Stage 2: Verify Runtime Environment & Appium Connectivity
+        // -------------------------------------------------------------
+        stage('Environment & Appium Healthcheck') {
+            steps {
+                echo 'Checking Java, Maven and Appium Server health...'
+                sh 'java -version'
+                sh 'mvn -version'
+                sh """
+                    echo "Pinging Appium Server at: ${params.APPIUM_SERVER_URL}"
+                    curl -s -f ${params.APPIUM_SERVER_URL}status || echo "Warning: Appium server ping returned non-200 or starting up..."
+                """
+            }
+        }
+
+        // -------------------------------------------------------------
+        // Stage 3: Execute Mobile Automated Tests
+        // -------------------------------------------------------------
+        stage('Execute Mobile Browser Tests') {
+            steps {
+                echo "🚀 Running Mobile Tests on Platform=${params.PLATFORM}, Device=${params.DEVICE_NAME}, Browser=${params.BROWSER}"
+                sh """
+                    mvn clean test \
+                        -DsuiteXmlFile=${params.SUITE_XML} \
+                        -Dappium.server.url=${params.APPIUM_SERVER_URL} \
+                        -Dmobile.platform=${params.PLATFORM} \
+                        -Dmobile.android.device.name="${params.DEVICE_NAME}" \
+                        -Dmobile.android.browser.name=${params.BROWSER}
+                """
+            }
+        }
+    }
+
+    // -------------------------------------------------------------
+    // Post-Execution: Reporting & Archiving
+    // -------------------------------------------------------------
+    post {
+        always {
+            echo 'Archiving Allure mobile test results and publishing report...'
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'target/allure-results']]
+            ])
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+        }
+        success {
+            echo '🎉 All Mobile Automated Tests Passed Successfully!'
+        }
+        failure {
+            echo '❌ Mobile Automated Tests Failed! Please inspect Allure report and failure screenshots.'
+        }
+    }
+}

@@ -347,10 +347,55 @@ Job oluşturulduktan sonra sol menüde **Build with Parameters** seçeneği beli
 
 ---
 
+---
+
+## 📱 10. Appium Mobil Web CI/CD Entegrasyonu & Docker Yapılandırması
+
+Mobil web testlerimizi (Android Chrome / iOS Safari) CI/CD süreçlerine dahil etmek için Docker Compose ve Jenkins altyapımıza Appium entegrasyonu tamamlanmıştır.
+
+### 10.1. Docker Compose İçerisindeki Appium Servisi
+`ci/docker-compose.yml` içerisine `appium-server` servisi eklenmiştir:
+
+```yaml
+appium:
+  image: appium/appium:latest
+  container_name: appium-server
+  ports:
+    - "4723:4723"   # Appium REST API Endpoint
+  environment:
+    - APPIUM_ADDITIONAL_ARGS=--allow-cors --relaxed-security
+    - RELAXED_SECURITY=true
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  networks:
+    - qa-network
+```
+
+### 10.2. Jenkinsfile.mobile Pipeline Dosyası
+`ci/pipelines/Jenkinsfile.mobile` dosyası ile Jenkins üzerinden tek tıkla parametrik mobil testler koşturulabilir:
+
+* **PLATFORM:** `ANDROID` / `IOS`
+* **DEVICE_NAME:** `Medium_Phone` / `emulator-5554`
+* **BROWSER:** `Chrome` / `Safari`
+* **SUITE_XML:** `mobile-smoke-tests.xml` / `mobile-regression-tests.xml`
+* **APPIUM_SERVER_URL:** `http://appium:4723/` (Docker içi) veya `http://host.docker.internal:4723/` (Host makine)
+
+### 10.3. Makefile ile Tek Satırda Mobil Test Koşumu
+```bash
+# Mobil Duman (Smoke) Testleri
+make test-mobile-smoke
+
+# Mobil Tam Regresyon Paketi
+make test-mobile-regression
+```
+
+---
+
 ## 🎯 Özet Mimarisi
 
 Bu yapı kurulduğunda projeniz şu yetenekleri kazanır:
-1. **Sıfır Yerel Bağımlılık:** Bilgisayarınızda Java/Maven kurulu olmasa bile Docker ile tüm testler koşar.
-2. **Paralel Koşu:** Selenium Grid sayesinde 3-5 tarayıcı eşzamanlı olarak Hepsiburada üzerinde test icra eder.
-3. **Görsel Dashboard:** Her testten sonra Allure raporları, ekran görüntüleri ve geçmiş trendleri tek ekranda toplanır.
-4. **Sürekli Güvenlik Ağı (CI):** Kod her değiştiğinde veya zamanı geldiğinde insan müdahalesine gerek kalmadan kalite kontrolü sağlanır.
+1. **Sıfır Yerel Bağımlılık:** Bilgisayarınızda Java/Maven kurulu olmasa bile Docker ile tüm Web ve Mobil testler koşar.
+2. **Çoklu Platform:** Masaüstü (Chrome, Firefox) ve Mobil (Android Chrome, iOS Safari) testleri tek CI/CD çatı altında yönetilir.
+3. **Paralel & Dağıtık Koşu:** Selenium Grid ve Appium sayesinde testler bağımsız konteyner ve emülatörlere dağıtılır.
+4. **Görsel Dashboard:** Her testten sonra Allure raporları, ekran görüntüleri ve geçmiş trendleri tek ekranda toplanır.
+5. **Sürekli Güvenlik Ağı (CI):** Kod her değiştiğinde veya zamanı geldiğinde insan müdahalesine gerek kalmadan kalite kontrolü sağlanır.

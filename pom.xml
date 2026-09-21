@@ -25,14 +25,21 @@
         <lombok.version>1.18.32</lombok.version>
         <restassured.version>5.4.0</restassured.version>
         <assertj.version>3.25.3</assertj.version>
+        <appium.version>9.2.2</appium.version>
+        <suiteXmlFile>testng.xml</suiteXmlFile>
     </properties>
 
     <dependencies>
-        <!-- ==================== SELENIUM WEBDRIVER ==================== -->
+        <!-- ==================== SELENIUM WEBDRIVER & APPIUM ==================== -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>${appium.version}</version>
         </dependency>
 
         <!-- ==================== TEST RUNNER (TESTNG) ==================== -->
@@ -141,7 +148,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"

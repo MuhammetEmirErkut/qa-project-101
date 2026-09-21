@@ -8,10 +8,19 @@ pipeline {
 
     // Configurable runtime parameters for parameterized test execution
     parameters {
-        choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Target browser for execution')
-        choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Run browser in headless mode')
-        string(name: 'THREAD_COUNT', defaultValue: '3', description: 'Number of parallel execution threads')
-        string(name: 'SUITE_XML', defaultValue: 'testng.xml', description: 'TestNG Suite XML file to run')
+        choice(name: 'EXECUTION_TYPE', choices: ['MOBILE_WEB', 'WEB_UI', 'API'], description: 'Koşturulacak Test Türü')
+        choice(name: 'SUITE_XML', choices: [
+            'src/test/resources/suites/mobile-smoke-tests.xml',
+            'src/test/resources/suites/mobile-regression-tests.xml',
+            'src/test/resources/suites/smoke-tests.xml',
+            'src/test/resources/suites/regression-tests.xml',
+            'src/test/resources/suites/api-tests.xml'
+        ], description: 'TestNG Suite XML file to run')
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Web UI: Target browser for execution')
+        choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Web UI: Run browser in headless mode')
+        string(name: 'DEVICE_NAME', defaultValue: 'Medium_Phone', description: 'Mobile: Target device / emulator')
+        string(name: 'APPIUM_SERVER_URL', defaultValue: 'http://appium:4723/', description: 'Mobile: Appium Server URL')
+        string(name: 'THREAD_COUNT', defaultValue: '2', description: 'Number of parallel execution threads')
     }
 
     // Global environment variables
@@ -27,7 +36,7 @@ pipeline {
 
     // Trigger pipeline automatically every 3 minutes for continuous testing
     triggers {
-        pollSCM('H/2 * * * *')
+        pollSCM('H/5 * * * *')
     }
 
     // Pipeline Execution Stages
@@ -58,17 +67,33 @@ pipeline {
         // -------------------------------------------------------------
         stage('Execute Automated Tests') {
             steps {
-                echo "Starting test suite execution with Browser=${params.BROWSER}, Headless=${params.HEADLESS}, Threads=${params.THREAD_COUNT}"
-                
-                // Execute tests against remote Selenium Grid with dynamic parameters
-                sh """
-                    mvn clean test \
-                        -Dbrowser=${params.BROWSER} \
-                        -Dheadless=${params.HEADLESS} \
-                        -Dremote=true \
-                        -DgridUrl=${SELENIUM_REMOTE_URL} \
-                        -Dsurefire.suiteXmlFiles=${params.SUITE_XML}
-                """
+                script {
+                    if (params.EXECUTION_TYPE == 'MOBILE_WEB') {
+                        echo "📱 Starting Mobile Web tests against Appium: ${params.APPIUM_SERVER_URL} with Suite=${params.SUITE_XML}"
+                        sh """
+                            mvn clean test \
+                                -DsuiteXmlFile=${params.SUITE_XML} \
+                                -Dappium.server.url=${params.APPIUM_SERVER_URL} \
+                                -Dmobile.android.device.name="${params.DEVICE_NAME}"
+                        """
+                    } else if (params.EXECUTION_TYPE == 'API') {
+                        echo "🧪 Starting API Automated Tests with Suite=${params.SUITE_XML}"
+                        sh """
+                            mvn clean test \
+                                -DsuiteXmlFile=${params.SUITE_XML}
+                        """
+                    } else {
+                        echo "🌐 Starting Web UI tests against Selenium Grid with Browser=${params.BROWSER}, Headless=${params.HEADLESS}"
+                        sh """
+                            mvn clean test \
+                                -Dbrowser=${params.BROWSER} \
+                                -Dheadless=${params.HEADLESS} \
+                                -Dremote=true \
+                                -DgridUrl=${SELENIUM_REMOTE_URL} \
+                                -DsuiteXmlFile=${params.SUITE_XML}
+                        """
+                    }
+                }
             }
         }
     }

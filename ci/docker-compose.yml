@@ -104,6 +104,22 @@ services:
     networks:
       - qa-network
 
+  # =============================================================================
+  # 6. Appium Server (Mobile Browser & Native Device Automation)
+  # =============================================================================
+  appium:
+    image: appium/appium:latest
+    container_name: appium-server
+    ports:
+      - "4723:4723"   # Appium REST API Endpoint: http://localhost:4723
+    environment:
+      - APPIUM_ADDITIONAL_ARGS=--allow-cors --relaxed-security
+      - RELAXED_SECURITY=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - qa-network
+
 networks:
   qa-network:
     name: qa-network

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Hepsiburada Mobile Web Full Regression Suite" verbose="1">
+    <listeners>
+        <listener class-name="com.hepsiburada.qa.listeners.TestListener"/>
+    </listeners>
+
+    <test name="Mobile Regression - Search and Filters">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.mobile.search.MobileSearchTests"/>
+            <class name="com.hepsiburada.qa.tests.mobile.search.MobileSearchFilterTests"/>
+        </classes>
+    </test>
+
+    <test name="Mobile Regression - PDP and Cart">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.mobile.pdp.MobileProductDetailTests"/>
+            <class name="com.hepsiburada.qa.tests.mobile.cart.MobileCartTests"/>
+        </classes>
+    </test>
+
+    <test name="Mobile Regression - Authentication">
+        <classes>
+            <class name="com.hepsiburada.qa.tests.mobile.login.MobileLoginTests"/>
+        </classes>
+    </test>
+</suite>
