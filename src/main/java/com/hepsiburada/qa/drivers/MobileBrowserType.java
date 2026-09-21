@@ -48,7 +48,6 @@ public enum MobileBrowserType {
                 "user-agent=Mozilla/5.0 (Linux; Android 14; Mobile; Pixel 7 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
             ));
             chromeOptions.put("excludeSwitches", Collections.singletonList("enable-automation"));
-            chromeOptions.put("useAutomationExtension", false);
 
             options.setCapability("goog:chromeOptions", chromeOptions);
             options.setCapability("appium:chromeOptions", chromeOptions);
