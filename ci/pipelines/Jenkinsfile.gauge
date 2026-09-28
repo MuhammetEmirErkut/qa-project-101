@@ -1,0 +1,80 @@
+// =============================================================================
+// Jenkins Pipeline: Dedicated Gauge BDD Test Automation (Gradle + Allure)
+// Location: ci/pipelines/Jenkinsfile.gauge
+// =============================================================================
+
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'GAUGE_SPECS_DIR', defaultValue: 'specs', description: 'Gauge Specification Dizin / Dosya Yolu (örn: specs, specs/login, specs/search, specs/cart, specs/pdp, specs/filter)')
+        choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Web Tarayıcısı')
+        choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Headless Modda Çalıştır')
+    }
+
+    environment {
+        SELENIUM_REMOTE_URL = 'http://selenium-hub:4444'
+    }
+
+    tools {
+        maven 'Maven_3.9.6'
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+        stage('Checkout Source') {
+            steps {
+                echo 'Checking out latest test automation code...'
+                checkout scm
+            }
+        }
+
+        stage('Environment Check') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+            }
+        }
+
+        stage('Execute Gauge Specifications') {
+            steps {
+                echo "📐 Running Gauge Specifications Suite (specsDir=${params.GAUGE_SPECS_DIR})..."
+                sh """
+                    chmod +x ./gradlew
+                    ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Archiving Results and Publishing Gauge HTML Report...'
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'build/allure-results'], [path: 'target/allure-results']]
+            ])
+            junit allowEmptyResults: true, testResults: 'build/test-results/**/*.xml, target/surefire-reports/*.xml'
+            publishHTML([
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'reports/html-report',
+                reportFiles: 'index.html',
+                reportName: 'Gauge Test Report'
+            ])
+        }
+        success {
+            echo '🎉 Gauge Specifications Executed and Passed Successfully!'
+        }
+        failure {
+            echo '❌ Gauge Specifications Failed! Please inspect the Gauge Test Report.'
+        }
+    }
+}

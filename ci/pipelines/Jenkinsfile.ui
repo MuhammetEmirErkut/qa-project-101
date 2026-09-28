@@ -1,5 +1,5 @@
 // =============================================================================
-// Jenkins Pipeline: UI Test Automation (Selenium Grid + TestNG + Allure)
+// Jenkins Pipeline: UI Test Automation (Gauge & TestNG on Selenium Grid)
 // Location: ci/pipelines/Jenkinsfile.ui
 // =============================================================================
 
@@ -7,10 +7,12 @@ pipeline {
     agent any
 
     parameters {
+        choice(name: 'TEST_RUNNER', choices: ['GAUGE', 'TESTNG'], description: 'UI Test Koşturucusu (Gauge BDD veya TestNG Suite)')
+        string(name: 'GAUGE_SPECS_DIR', defaultValue: 'specs', description: 'Gauge: Specification Dizini (örn: specs, specs/login, specs/search, specs/cart, specs/pdp, specs/filter)')
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Hedef Web Tarayıcısı')
         choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Headless Modda Çalıştır')
-        string(name: 'THREAD_COUNT', defaultValue: '3', description: 'Paralel Thread Sayısı')
-        string(name: 'SUITE_XML', defaultValue: 'testng.xml', description: 'TestNG Suite XML Dosyası')
+        string(name: 'THREAD_COUNT', defaultValue: '2', description: 'Paralel Thread Sayısı')
+        string(name: 'SUITE_XML', defaultValue: 'testng.xml', description: 'TestNG Suite XML Dosyası (TestNG seçildiğinde)')
     }
 
     environment {
@@ -42,30 +44,48 @@ pipeline {
 
         stage('Execute UI Tests') {
             steps {
-                echo "Running UI Tests with Browser=${params.BROWSER}, Headless=${params.HEADLESS}, Threads=${params.THREAD_COUNT}"
-                sh """
-                    mvn clean test \
-                        -Dbrowser=${params.BROWSER} \
-                        -Dheadless=${params.HEADLESS} \
-                        -Dremote=true \
-                        -DgridUrl=${SELENIUM_REMOTE_URL} \
-                        -Dsurefire.suiteXmlFiles=${params.SUITE_XML}
-                """
+                script {
+                    if (params.TEST_RUNNER == 'GAUGE') {
+                        echo "📐 Running Gauge UI Specifications with specsDir=${params.GAUGE_SPECS_DIR}"
+                        sh """
+                            chmod +x ./gradlew
+                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
+                        """
+                    } else {
+                        echo "🌐 Running TestNG UI Tests with Browser=${params.BROWSER}, Headless=${params.HEADLESS}, Threads=${params.THREAD_COUNT}"
+                        sh """
+                            mvn clean test \
+                                -Dbrowser=${params.BROWSER} \
+                                -Dheadless=${params.HEADLESS} \
+                                -Dremote=true \
+                                -DgridUrl=${SELENIUM_REMOTE_URL} \
+                                -Dsurefire.suiteXmlFiles=${params.SUITE_XML}
+                        """
+                    }
+                }
             }
         }
     }
 
     post {
         always {
-            echo 'Archiving Allure Results and Publishing Report...'
+            echo 'Archiving Results and Publishing Reports...'
             allure([
                 includeProperties: false,
                 jdk: '',
                 properties: [],
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'target/allure-results']]
+                results: [[path: 'target/allure-results'], [path: 'build/allure-results']]
             ])
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, build/test-results/**/*.xml'
+            publishHTML([
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'reports/html-report',
+                reportFiles: 'index.html',
+                reportName: 'Gauge Test Report'
+            ])
         }
         success {
             echo 'UI Automation Tests Passed Successfully! 🚀'
