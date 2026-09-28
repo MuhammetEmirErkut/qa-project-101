@@ -72,6 +72,14 @@ pipeline {
                     if (params.EXECUTION_TYPE == 'GAUGE') {
                         echo "📐 Starting Gauge Specifications Suite with SpecsDir=${params.GAUGE_SPECS_DIR}"
                         sh """
+                            mkdir -p \$HOME/.local/bin
+                            export PATH=\$HOME/.local/bin:\$PATH
+                            if ! command -v gauge > /dev/null 2>&1; then
+                                echo "📥 Gauge not found in Jenkins, downloading and installing Gauge CLI..."
+                                curl -SsL https://downloads.gauge.org/stable | sh -s -- --location=\$HOME/.local/bin
+                                gauge install java || true
+                                gauge install html-report || true
+                            fi
                             chmod +x ./gradlew
                             ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
                         """
