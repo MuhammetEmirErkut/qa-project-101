@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.12.0'
+    id 'org.gauge' version '3.2.0'
 }
 
 group = 'com.hepsiburada.qa'
@@ -24,17 +25,19 @@ def jacksonVersion = '2.17.1'
 def lombokVersion = '1.18.32'
 def restassuredVersion = '5.4.0'
 def assertjVersion = '3.25.3'
+def gaugeVersion = '0.11.1'
 
 dependencies {
     // ==================== SELENIUM WEBDRIVER & APPIUM ====================
     implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
     implementation "io.appium:java-client:9.2.2"
 
-    // ==================== TEST RUNNER (TESTNG) ====================
+    // ==================== TEST RUNNERS (TESTNG & GAUGE) ====================
     testImplementation "org.testng:testng:${testngVersion}"
+    testImplementation "com.thoughtworks.gauge:gauge-java:${gaugeVersion}"
 
     // ==================== REPORTING (ALLURE) ====================
-    testImplementation "io.qameta.allure:allure-testng:${allureVersion}"
+    implementation "io.qameta.allure:allure-testng:${allureVersion}"
     testImplementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
 
     // ==================== API AUTOMATION & ASSERTIONS ====================
@@ -70,4 +73,15 @@ allure {
     version = allureVersion
     autoconfigure = true
     aspectjweaver = true
+}
+
+gauge {
+    specsDir = project.findProperty('specsDir') ?: 'specs'
+    inParallel = false
+    nodes = 2
+}
+
+tasks.register('copyDependencies', Copy) {
+    from configurations.testRuntimeClasspath
+    into layout.projectDirectory.dir('libs')
 }

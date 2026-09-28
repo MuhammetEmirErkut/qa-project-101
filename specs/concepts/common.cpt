@@ -1,0 +1,9 @@
+# Search for <keyword> and navigate to PDP
+* Search for product <keyword>
+* Verify search results are displayed
+* Click first product and navigate to detail page
+
+# Quick search and verify <keyword>
+* Navigate to home page and accept cookies
+* Search for product <keyword>
+* Verify search results are displayed

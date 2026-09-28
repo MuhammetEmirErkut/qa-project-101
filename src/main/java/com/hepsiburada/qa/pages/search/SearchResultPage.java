@@ -229,7 +229,7 @@ public class SearchResultPage extends BasePage {
         return this;
     }
 
-    @Step("Sort products by lowest price")
+    @Step("Execute sort products by lowest price")
     public SearchResultPage sortByLowestPrice() {
         String currentUrl = driver.getCurrentUrl();
         String cleanUrl = currentUrl.replaceAll("([&?])siralama=[^&]*", "");

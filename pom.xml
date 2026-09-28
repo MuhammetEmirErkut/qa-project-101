@@ -26,6 +26,7 @@
         <restassured.version>5.4.0</restassured.version>
         <assertj.version>3.25.3</assertj.version>
         <appium.version>9.2.2</appium.version>
+        <gauge.version>0.11.1</gauge.version>
         <suiteXmlFile>testng.xml</suiteXmlFile>
     </properties>
 
@@ -42,11 +43,17 @@
             <version>${appium.version}</version>
         </dependency>
 
-        <!-- ==================== TEST RUNNER (TESTNG) ==================== -->
+        <!-- ==================== TEST RUNNER (TESTNG & GAUGE) ==================== -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.gauge</groupId>
+            <artifactId>gauge-java</artifactId>
+            <version>${gauge.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- ==================== REPORTING (ALLURE) ==================== -->
@@ -187,6 +194,36 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>false</failsOnError>
                     <linkXRef>false</linkXRef>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Dependency Plugin to copy jars for standalone Gauge CLI -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/libs</outputDirectory>
+                            <includeScope>test</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Gauge Maven Plugin -->
+            <plugin>
+                <groupId>com.thoughtworks.gauge.maven</groupId>
+                <artifactId>gauge-maven-plugin</artifactId>
+                <version>1.6.1</version>
+                <configuration>
+                    <specsDir>specs</specsDir>
                 </configuration>
             </plugin>
         </plugins>

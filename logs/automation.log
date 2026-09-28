@@ -1,96 +1,395 @@
-2026-09-21 08:16:31.664 [main] INFO  com.hepsiburada.qa.listeners.TestListener - ========== TEST SUITE STARTED: Smoke and Functional Tests ==========
-2026-09-21 08:16:42.646 [TestNG-test-Smoke and Functional Tests-1] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testFilterByBrand
-2026-09-21 08:16:46.664 [TestNG-test-Smoke and Functional Tests-2] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testFilterByPriceRange
-2026-09-21 08:16:46.990 [TestNG-test-Smoke and Functional Tests-3] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testSortByLowestPrice
-2026-09-21 08:17:26.219 [main] INFO  com.hepsiburada.qa.listeners.TestListener - ========== TEST SUITE STARTED: Smoke and Functional Tests ==========
-2026-09-21 08:17:28.859 [TestNG-test-Smoke and Functional Tests-3] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testSortByLowestPrice
-2026-09-21 08:17:28.981 [TestNG-test-Smoke and Functional Tests-2] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testFilterByPriceRange
-2026-09-21 08:17:28.982 [TestNG-test-Smoke and Functional Tests-1] INFO  com.hepsiburada.qa.listeners.TestListener - 🚀 STARTING TEST: com.hepsiburada.qa.tests.search.SearchFilterTests.testFilterByBrand
-2026-09-21 08:19:07.841 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:19:08.200 [main] ERROR com.hepsiburada.qa.drivers.MobileDriverFactory - Failed to initialize Appium driver: Could not start a new session. Response code 500. Message: Unable to find an active device or emulator with OS 14.0. The following are available: emulator-5554 (17) 
-Host info: host: '192.168.1.106', ip: '2a00:1d34:48d:400:40f4:8746:8585:7780%en0'
+2026-09-28 12:43:11.928 [ForkJoinPool.commonPool-worker-1] WARN  org.reflections.Reflections - could not create Dir using com.thoughtworks.gauge.scan.ClasspathScanner$1@73ff8ad1 from url file:/Users/erkut/projects/qa-project-101/build/resources/main. skipping.
+java.lang.NullPointerException: Cannot invoke "java.io.File.isDirectory()" because "file" is null
+	at com.thoughtworks.gauge.scan.ClasspathScanner$1.createDir(ClasspathScanner.java:48) ~[gauge-java-0.11.1.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:103) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:43:11.945 [ForkJoinPool.commonPool-worker-1] WARN  org.reflections.Reflections - could not create Vfs.Dir from url. ignoring the exception and continuing
+org.reflections.ReflectionsException: could not create Vfs.Dir from url, no matching UrlType was found [file:/Users/erkut/projects/qa-project-101/build/resources/main]
+either use fromURL(final URL url, final List<UrlType> urlTypes) or use the static setDefaultURLTypes(final List<UrlType> urlTypes) or addDefaultURLTypes(UrlType urlType) with your specialized UrlType.
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:113) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:43:12.291 [pool-1-thread-1] INFO  org.reflections.Reflections - Reflections took 992 ms to scan 98 urls, producing 6121 keys and 39099 values
+2026-09-28 12:43:12.605 [ForkJoinPool.commonPool-worker-3] WARN  org.reflections.Reflections - could not create Dir using com.thoughtworks.gauge.scan.ClasspathScanner$1@73ff8ad1 from url file:/Users/erkut/projects/qa-project-101/build/resources/main. skipping.
+java.lang.NullPointerException: Cannot invoke "java.io.File.isDirectory()" because "file" is null
+	at com.thoughtworks.gauge.scan.ClasspathScanner$1.createDir(ClasspathScanner.java:48) ~[gauge-java-0.11.1.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:103) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:43:12.606 [ForkJoinPool.commonPool-worker-3] WARN  org.reflections.Reflections - could not create Vfs.Dir from url. ignoring the exception and continuing
+org.reflections.ReflectionsException: could not create Vfs.Dir from url, no matching UrlType was found [file:/Users/erkut/projects/qa-project-101/build/resources/main]
+either use fromURL(final URL url, final List<UrlType> urlTypes) or use the static setDefaultURLTypes(final List<UrlType> urlTypes) or addDefaultURLTypes(UrlType urlType) with your specialized UrlType.
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:113) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:43:12.879 [pool-2-thread-1] INFO  org.reflections.Reflections - Reflections took 431 ms to scan 98 urls, producing 6006 keys and 27068 values
+2026-09-28 12:43:13.060 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:43:13.064 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 1. User Can Add Product to Cart
+2026-09-28 12:43:13.065 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Cart Operations Specifications
+2026-09-28 12:43:13.065 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:43:16.420 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:43:22.809 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Bluetooth Kulaklık
+2026-09-28 12:43:29.125 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Bluetooth Kulaklık'
+2026-09-28 12:43:37.248 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking element: By.cssSelector: article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, a[data-test-id='product-card-name'], a[data-test-id='product-card-link'], li[class*='productListContent'] a, ul[class*='productListContent'] > li a, div[class*='product-list-item'] a
+2026-09-28 12:43:37.399 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Switched to new browser tab: 84EAFAF20CB5CE9833E1970673D6593F
+2026-09-28 12:43:39.594 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Read text 'Xiaomi Redmi Buds 6 Play - Siyah Kulakiçi Kulaklık TWS (Xiaomi Türkiye Garantili)' from element: By.cssSelector: h1#product-name, [data-test-id='title'], h1[class*='product-name'], h1[class*='title'], h1
+2026-09-28 12:43:39.594 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.CartSteps - Saved expected product name: Xiaomi Redmi Buds 6 Play - Siyah Kulakiçi Kulaklık TWS (Xiaomi Türkiye Garantili)
+2026-09-28 12:43:39.603 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Adding product to cart
+2026-09-28 12:43:39.769 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicked add to cart button using locator: By.cssSelector: button[id*='addToCart'], [data-test-id='addToCart'], button#addToCart, button[class*='addToCartButton'], button[class*='add-to-basket']
+2026-09-28 12:43:46.048 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Navigating to cart from PDP
+2026-09-28 12:43:47.791 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Detected login/guest prompt page (https://giris.hepsiburada.com/?returnurl=https%3a%2f%2foauth.hepsiburada.com%2fconnect%2fauthorize%2fcallback%3fclient_id%3dspa%26redirect_uri%3dhttps%253a%252f%252fwww.hepsiburada.com%252fuyelik%252fcallback%26response_type%3dcode%26scope%3dopenid%2520profile%26state%3d9dd80f06d38e4c40983cea60315ce000%26code_challenge%3d5weejxxk2gyxcym51jo-51fgjd9zwgaukndfa5ympg0%26code_challenge_method%3ds256%26response_mode%3dquery%26islazyregistration%3d1%26lazycontinueurl%3dhttps%253a%252f%252fcheckout.hepsiburada.com%252fsepetim%26activepage%3dpure_login%26oidcreturnurl%3dhttps%253a%252f%252fcheckout.hepsiburada.com%252fsepetim), attempting to process guest flow
+2026-09-28 12:43:56.966 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Successfully clicked 'Üye olmadan devam et'
+2026-09-28 12:43:57.054 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Entered guest email: guest.test.1790588636976@gmail.com
+2026-09-28 12:43:57.076 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicked 'Devam et' button on guest email screen
+2026-09-28 12:43:57.100 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Detected login/guest prompt page (https://giris.hepsiburada.com/?returnurl=https%3a%2f%2foauth.hepsiburada.com%2fconnect%2fauthorize%2fcallback%3fclient_id%3dspa%26redirect_uri%3dhttps%253a%252f%252fwww.hepsiburada.com%252fuyelik%252fcallback%26response_type%3dcode%26scope%3dopenid%2520profile%26state%3d9dd80f06d38e4c40983cea60315ce000%26code_challenge%3d5weejxxk2gyxcym51jo-51fgjd9zwgaukndfa5ympg0%26code_challenge_method%3ds256%26response_mode%3dquery%26islazyregistration%3d1%26lazycontinueurl%3dhttps%253a%252f%252fcheckout.hepsiburada.com%252fsepetim%26activepage%3dpure_login%26oidcreturnurl%3dhttps%253a%252f%252fcheckout.hepsiburada.com%252fsepetim), attempting to process guest flow
+2026-09-28 12:44:15.799 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 1. User Can Add Product to Cart
+2026-09-28 12:44:16.018 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:44:16.018 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 1. Filter Search Results by Brand
+2026-09-28 12:44:16.018 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Filter and Sorting Specifications
+2026-09-28 12:44:16.018 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:44:18.037 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:44:24.408 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Telefon
+2026-09-28 12:44:30.968 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Telefon'
+2026-09-28 12:44:42.122 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 1. Filter Search Results by Brand
+2026-09-28 12:44:52.314 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:44:52.315 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 3. Filter Search Results by Price Range
+2026-09-28 12:44:52.315 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Filter and Sorting Specifications
+2026-09-28 12:44:52.315 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:44:54.229 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:45:00.551 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Monitör
+2026-09-28 12:45:06.805 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Monitör'
+2026-09-28 12:45:07.975 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: element not interactable
+  (Session info: chrome=153.0.8010.53)
 Build info: version: '4.21.0', revision: '79ed462ef4'
 System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
-Driver info: io.appium.java_client.android.AndroidDriver
-Command: [null, newSession {capabilities=[{appium:automationName=UiAutomator2, appium:newCommandTimeout=300, appium:deviceName=Medium_Phone, appium:chromedriver_autodownload=true, appium:noReset=false, browserName=Chrome, appium:platformVersion=14.0, platformName=ANDROID}], desiredCapabilities=Capabilities {appium:automationName: UiAutomator2, appium:chromedriver_autodownload: true, appium:deviceName: Medium_Phone, appium:newCommandTimeout: 300, appium:noReset: false, appium:platformVersion: 14.0, browserName: Chrome, platformName: ANDROID}}]
-Capabilities {appium:automationName: UiAutomator2, appium:chromedriver_autodownload: true, appium:deviceName: Medium_Phone, appium:newCommandTimeout: 300, appium:noReset: false, appium:platformVersion: 14.0, browserName: Chrome, platformName: ANDROID}
-org.openqa.selenium.SessionNotCreatedException: Could not start a new session. Response code 500. Message: Unable to find an active device or emulator with OS 14.0. The following are available: emulator-5554 (17) 
-Host info: host: '192.168.1.106', ip: '2a00:1d34:48d:400:40f4:8746:8585:7780%en0'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [e98ad41b687d3b2cf19ffd0041d016c0, sendKeysToElement {value=[Ljava.lang.CharSequence;@30a674ee, id=f.E4C57AB822AF872B851205C573F7A951.d.4650EDFA48485C34FD2A43D94E57F5DA.e.2196}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59062}, goog:processID: 28217, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:59062/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (e98ad41b687d3b2cf19ffd0041d016c0)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: e98ad41b687d3b2cf19ffd0041d016c0
+2026-09-28 12:45:22.858 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 3. Filter Search Results by Price Range
+2026-09-28 12:45:33.004 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:45:33.005 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 1. Selecting Product Variant Updates Product Information
+2026-09-28 12:45:33.005 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Product Detail Page (PDP) Specifications
+2026-09-28 12:45:33.005 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:45:34.880 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:45:41.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: iPhone 13
+2026-09-28 12:45:47.855 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'iPhone 13'
+2026-09-28 12:45:48.996 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
 Build info: version: '4.21.0', revision: '79ed462ef4'
 System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
-Driver info: io.appium.java_client.android.AndroidDriver
-Command: [null, newSession {capabilities=[{appium:automationName=UiAutomator2, appium:newCommandTimeout=300, appium:deviceName=Medium_Phone, appium:chromedriver_autodownload=true, appium:noReset=false, browserName=Chrome, appium:platformVersion=14.0, platformName=ANDROID}], desiredCapabilities=Capabilities {appium:automationName: UiAutomator2, appium:chromedriver_autodownload: true, appium:deviceName: Medium_Phone, appium:newCommandTimeout: 300, appium:noReset: false, appium:platformVersion: 14.0, browserName: Chrome, platformName: ANDROID}}]
-Capabilities {appium:automationName: UiAutomator2, appium:chromedriver_autodownload: true, appium:deviceName: Medium_Phone, appium:newCommandTimeout: 300, appium:noReset: false, appium:platformVersion: 14.0, browserName: Chrome, platformName: ANDROID}
-	at org.openqa.selenium.remote.ProtocolHandshake.createSession(ProtocolHandshake.java:114) ~[selenium-remote-driver-4.21.0.jar:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[?:?]
-	at io.appium.java_client.remote.AppiumProtocolHandshake.createSession(AppiumProtocolHandshake.java:116) ~[java-client-9.2.2.jar:?]
-	at io.appium.java_client.remote.AppiumProtocolHandshake.createSession(AppiumProtocolHandshake.java:96) ~[java-client-9.2.2.jar:?]
-	at io.appium.java_client.remote.AppiumCommandExecutor.createSession(AppiumCommandExecutor.java:176) ~[java-client-9.2.2.jar:?]
-	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:237) ~[java-client-9.2.2.jar:?]
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:518) ~[selenium-remote-driver-4.21.0.jar:?]
-	at io.appium.java_client.AppiumDriver.startSession(AppiumDriver.java:268) ~[java-client-9.2.2.jar:?]
-	at org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:161) ~[selenium-remote-driver-4.21.0.jar:?]
-	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:90) ~[java-client-9.2.2.jar:?]
-	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:102) ~[java-client-9.2.2.jar:?]
-	at io.appium.java_client.android.AndroidDriver.<init>(AndroidDriver.java:109) ~[java-client-9.2.2.jar:?]
-	at com.hepsiburada.qa.drivers.MobileBrowserType$1.createDriver(MobileBrowserType.java:36) ~[classes/:?]
-	at com.hepsiburada.qa.drivers.MobileDriverFactory.initDriver(MobileDriverFactory.java:26) ~[classes/:?]
-	at com.hepsiburada.qa.base.MobileBaseTest.setUp(MobileBaseTest.java:29) ~[test-classes/:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[?:?]
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154) ~[testng-7.10.2.jar:7.10.2]
-	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134) ~[testng-7.10.2.jar:7.10.2]
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
-	at org.testng.TestRunner.privateRun(TestRunner.java:739) [testng-7.10.2.jar:7.10.2]
-	at org.testng.TestRunner.run(TestRunner.java:614) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunner.run(SuiteRunner.java:312) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52) [testng-7.10.2.jar:7.10.2]
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95) [testng-7.10.2.jar:7.10.2]
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274) [testng-7.10.2.jar:7.10.2]
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208) [testng-7.10.2.jar:7.10.2]
-	at org.testng.TestNG.runSuites(TestNG.java:1112) [testng-7.10.2.jar:7.10.2]
-	at org.testng.TestNG.run(TestNG.java:1079) [testng-7.10.2.jar:7.10.2]
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155) [surefire-testng-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102) [surefire-testng-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91) [surefire-testng-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137) [surefire-testng-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.2.5.jar:3.2.5]
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.2.5.jar:3.2.5]
-2026-09-21 08:20:15.235 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:20:33.129 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Initiating mobile search for keyword: 'asdfghjklqwertyuiop'
-2026-09-21 08:21:06.067 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Quitting Appium mobile driver...
-2026-09-21 08:21:06.299 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:21:23.539 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Initiating mobile search for keyword: 'Laptop'
-2026-09-21 08:21:56.184 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Quitting Appium mobile driver...
-2026-09-21 08:21:56.522 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:22:18.234 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Initiating mobile search for keyword: 'Laptop'
-2026-09-21 08:22:33.672 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Mobile click on element: By.cssSelector: [data-test-id='search-icon'], div[class*='searchIcon'], svg[class*='search'], div[class*='searchBox'], a[href*='arama']
-2026-09-21 08:22:45.434 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Quitting Appium mobile driver...
-2026-09-21 08:22:45.663 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:23:06.487 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Initiating mobile search for keyword: 'iPhone'
-2026-09-21 08:23:22.059 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Mobile click on element: By.cssSelector: [data-test-id='search-icon'], div[class*='searchIcon'], svg[class*='search'], div[class*='searchBox'], a[href*='arama']
-2026-09-21 08:23:53.935 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Quitting Appium mobile driver...
-2026-09-21 08:23:54.232 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Initializing Appium driver for platform [ANDROID_CHROME] at server [http://127.0.0.1:4723/]
-2026-09-21 08:24:12.392 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Initiating mobile search for keyword: 'Kulaklık'
-2026-09-21 08:24:27.810 [main] INFO  com.hepsiburada.qa.pages.base.MobileBasePage - Mobile click on element: By.cssSelector: [data-test-id='search-icon'], div[class*='searchIcon'], svg[class*='search'], div[class*='searchBox'], a[href*='arama']
-2026-09-21 08:24:42.755 [main] INFO  com.hepsiburada.qa.drivers.MobileDriverFactory - Quitting Appium mobile driver...
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [83c7426e7fc50607b47348e3cc948e0a, sendKeysToElement {value=[Ljava.lang.CharSequence;@4d45904d, id=f.3C3D4325D4F4E11AE96A7FACA3D916DF.d.AE1B702210DD9FE129BEAF43CE60566E.e.2177}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59243}, goog:processID: 28416, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:59243/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (83c7426e7fc50607b47348e3cc948e0a)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: 83c7426e7fc50607b47348e3cc948e0a
+2026-09-28 12:45:49.079 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 2/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [83c7426e7fc50607b47348e3cc948e0a, executeScript {args=[{element-6066-11e4-a52e-4f735466cecf=f.3C3D4325D4F4E11AE96A7FACA3D916DF.d.AE1B702210DD9FE129BEAF43CE60566E.e.2179}], script=arguments[0].click();}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59243}, goog:processID: 28416, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:59243/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 83c7426e7fc50607b47348e3cc948e0a
+2026-09-28 12:45:54.127 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking element: By.cssSelector: article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, a[data-test-id='product-card-name'], a[data-test-id='product-card-link'], li[class*='productListContent'] a, ul[class*='productListContent'] > li a, div[class*='product-list-item'] a
+2026-09-28 12:45:54.340 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Switched to new browser tab: 22D36324A681B0CCFDCDC1C23DB3DA2D
+2026-09-28 12:45:56.597 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.ProductDetailSteps - Saved initial PDP price: 49.999,00 TL
+2026-09-28 12:45:56.605 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Selecting first available alternative variant
+2026-09-28 12:45:56.680 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Read text 'Apple iPhone 11 128 GB Siyah' from element: By.cssSelector: h1#product-name, [data-test-id='title'], h1[class*='product-name'], h1[class*='title'], h1
+2026-09-28 12:45:56.705 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 1. Selecting Product Variant Updates Product Information
+2026-09-28 12:46:06.911 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:46:06.911 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 2. Guest User Adding to Wishlist Prompts Login
+2026-09-28 12:46:06.912 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Product Detail Page (PDP) Specifications
+2026-09-28 12:46:06.912 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:46:08.565 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:46:15.031 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: MacBook
+2026-09-28 12:46:21.545 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'MacBook'
+2026-09-28 12:46:22.655 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [fc024ae6d1df47f4e0580245e2e99c23, sendKeysToElement {value=[Ljava.lang.CharSequence;@2b8e59b0, id=f.FA9A5D91CF5CAA525463FF7FB99D2640.d.10236FEB6719F0511A6DA4A98F10DBD6.e.2180}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59416}, goog:processID: 28574, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:59416/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (fc024ae6d1df47f4e0580245e2e99c23)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: fc024ae6d1df47f4e0580245e2e99c23
+2026-09-28 12:46:22.705 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 2/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [fc024ae6d1df47f4e0580245e2e99c23, executeScript {args=[{element-6066-11e4-a52e-4f735466cecf=f.FA9A5D91CF5CAA525463FF7FB99D2640.d.10236FEB6719F0511A6DA4A98F10DBD6.e.2182}], script=arguments[0].click();}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59416}, goog:processID: 28574, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:59416/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: fc024ae6d1df47f4e0580245e2e99c23
+2026-09-28 12:46:25.852 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking element: By.cssSelector: article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, a[data-test-id='product-card-name'], a[data-test-id='product-card-link'], li[class*='productListContent'] a, ul[class*='productListContent'] > li a, div[class*='product-list-item'] a
+2026-09-28 12:46:26.061 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Switched to new browser tab: AAF979B5CCCFD4C1CFEAD650524A43A3
+2026-09-28 12:46:27.734 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking wishlist button
+2026-09-28 12:46:47.116 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 2. Guest User Adding to Wishlist Prompts Login
+2026-09-28 12:46:47.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:46:47.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 3. Opening Product Reviews and Ratings Tab
+2026-09-28 12:46:47.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Product Detail Page (PDP) Specifications
+2026-09-28 12:46:47.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:46:49.014 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:46:55.591 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Samsung
+2026-09-28 12:47:02.115 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Samsung'
+2026-09-28 12:47:07.321 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking element: By.cssSelector: article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, a[data-test-id='product-card-name'], a[data-test-id='product-card-link'], li[class*='productListContent'] a, ul[class*='productListContent'] > li a, div[class*='product-list-item'] a
+2026-09-28 12:47:07.497 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Switched to new browser tab: 39C680F0E58F937D618D1926001ECAAA
+2026-09-28 12:47:09.312 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Opening reviews tab
+2026-09-28 12:47:10.472 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 3. Opening Product Reviews and Ratings Tab
+2026-09-28 12:47:20.707 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:47:20.707 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 1. Valid Product Search and Title Verification
+2026-09-28 12:47:20.708 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Search Functionality Specifications
+2026-09-28 12:47:20.708 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:47:21.976 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:47:29.140 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Laptop
+2026-09-28 12:47:35.661 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Laptop'
+2026-09-28 12:47:46.553 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 1. Valid Product Search and Title Verification
+2026-09-28 12:47:54.942 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:47:54.943 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 3. Invalid Keyword Search Displays No Results Message
+2026-09-28 12:47:54.943 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Search Functionality Specifications
+2026-09-28 12:47:54.943 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:47:56.660 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:48:03.272 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: asdfghjklqwertyuiop
+2026-09-28 12:48:09.781 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'asdfghjklqwertyuiop'
+2026-09-28 12:48:18.241 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 3. Invalid Keyword Search Displays No Results Message
+2026-09-28 12:48:28.397 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:48:28.397 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:48:28.397 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Search Functionality Specifications
+2026-09-28 12:48:28.397 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:48:29.997 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:48:36.510 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Headphones
+2026-09-28 12:48:43.027 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Headphones'
+2026-09-28 12:48:44.130 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [aa90e6f5270d210a02789e9405458b7c, sendKeysToElement {value=[Ljava.lang.CharSequence;@c373d1d, id=f.86BD0025AC1868B59AADF01153725AA0.d.0514309E3AB9C2AB70118402AE3C9D89.e.2170}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60122}, goog:processID: 29172, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60122/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (aa90e6f5270d210a02789e9405458b7c)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: aa90e6f5270d210a02789e9405458b7c
+2026-09-28 12:48:44.211 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 2/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [aa90e6f5270d210a02789e9405458b7c, executeScript {args=[{element-6066-11e4-a52e-4f735466cecf=f.86BD0025AC1868B59AADF01153725AA0.d.0514309E3AB9C2AB70118402AE3C9D89.e.2172}], script=arguments[0].click();}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60122}, goog:processID: 29172, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60122/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: aa90e6f5270d210a02789e9405458b7c
+2026-09-28 12:48:52.694 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:49:02.842 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:49:02.842 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:49:02.842 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Search Functionality Specifications
+2026-09-28 12:49:02.842 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:49:04.619 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:49:11.185 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Smart Watch
+2026-09-28 12:49:17.691 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Smart Watch'
+2026-09-28 12:49:18.857 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [2769570a5f26b216136c580ac16b6e6d, sendKeysToElement {value=[Ljava.lang.CharSequence;@773f4e72, id=f.F1D9E9FCEB2511056A5EFB8D53E91BB9.d.288C60F2A0E56E41CDA92CFAF9664CCA.e.2169}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60281}, goog:processID: 29305, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60281/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (2769570a5f26b216136c580ac16b6e6d)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: 2769570a5f26b216136c580ac16b6e6d
+2026-09-28 12:49:18.942 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 2/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [2769570a5f26b216136c580ac16b6e6d, executeScript {args=[{element-6066-11e4-a52e-4f735466cecf=f.F1D9E9FCEB2511056A5EFB8D53E91BB9.d.288C60F2A0E56E41CDA92CFAF9664CCA.e.2171}], script=arguments[0].click();}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60281}, goog:processID: 29305, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60281/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2769570a5f26b216136c580ac16b6e6d
+2026-09-28 12:49:26.211 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:49:36.398 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:49:36.399 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:49:36.399 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Search Functionality Specifications
+2026-09-28 12:49:36.399 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:49:38.222 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:49:44.808 [pool-2-thread-1] INFO  com.hepsiburada.qa.steps.SearchSteps - Searching for keyword: Mechanical Keyboard
+2026-09-28 12:49:51.302 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Initiating search for keyword: 'Mechanical Keyboard'
+2026-09-28 12:49:52.472 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 1/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [a10bd7709034794e1abfa01bef733c6a, sendKeysToElement {value=[Ljava.lang.CharSequence;@7440d979, id=f.13AEFE5CD32E5F0A9605E9D00C56863E.d.8C720036240E517596B0553990E9FFCB.e.2179}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60461}, goog:processID: 29458, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60461/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on mac (a10bd7709034794e1abfa01bef733c6a)] -> css selector: div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']]
+Session ID: a10bd7709034794e1abfa01bef733c6a
+2026-09-28 12:49:52.566 [pool-2-thread-1] WARN  com.hepsiburada.qa.pages.base.BasePage - Retry 2/3 for search due to: stale element reference: stale element not found in the current frame
+  (Session info: chrome=153.0.8010.53)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.21.0', revision: '79ed462ef4'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '26.3', java.version: '17.0.20.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [a10bd7709034794e1abfa01bef733c6a, executeScript {args=[{element-6066-11e4-a52e-4f735466cecf=f.13AEFE5CD32E5F0A9605E9D00C56863E.d.8C720036240E517596B0553990E9FFCB.e.2181}], script=arguments[0].click();}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 153.0.8010.53, chrome: {chromedriverVersion: 153.0.8010.52 (78e5e45d4bb4..., userDataDir: /var/folders/ft/tbfh_r513px...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60461}, goog:processID: 29458, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:60461/devtoo..., se:cdpVersion: 153.0.8010.53, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:cmtgKey: true, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: a10bd7709034794e1abfa01bef733c6a
+2026-09-28 12:49:59.106 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 2. Data-Driven Product Search with Keyword Table
+2026-09-28 12:54:42.807 [pool-1-thread-1] WARN  org.reflections.Reflections - could not create Dir using com.thoughtworks.gauge.scan.ClasspathScanner$1@61ace1e2 from url file:/Users/erkut/projects/qa-project-101/build/resources/main. skipping.
+java.lang.NullPointerException: Cannot invoke "java.io.File.isDirectory()" because "file" is null
+	at com.thoughtworks.gauge.scan.ClasspathScanner$1.createDir(ClasspathScanner.java:48) ~[gauge-java-0.11.1.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:103) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) ~[?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) ~[?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.helpComplete(ForkJoinPool.java:1950) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.awaitDone(ForkJoinTask.java:433) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:687) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateParallel(ForEachOps.java:159) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateParallel(ForEachOps.java:173) ~[?:?]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233) ~[?:?]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[?:?]
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:765) ~[?:?]
+	at org.reflections.Reflections.scan(Reflections.java:173) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.<init>(Reflections.java:126) ~[reflections-0.10.2.jar:?]
+	at com.thoughtworks.gauge.scan.ClasspathScanner.createReflections(ClasspathScanner.java:57) ~[gauge-java-0.11.1.jar:?]
+	at com.thoughtworks.gauge.scan.ClasspathScanner.scan(ClasspathScanner.java:32) ~[gauge-java-0.11.1.jar:?]
+	at com.thoughtworks.gauge.connection.MessageProcessorFactory.lambda$new$0(MessageProcessorFactory.java:70) ~[gauge-java-0.11.1.jar:?]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+2026-09-28 12:54:42.820 [pool-1-thread-1] WARN  org.reflections.Reflections - could not create Vfs.Dir from url. ignoring the exception and continuing
+org.reflections.ReflectionsException: could not create Vfs.Dir from url, no matching UrlType was found [file:/Users/erkut/projects/qa-project-101/build/resources/main]
+either use fromURL(final URL url, final List<UrlType> urlTypes) or use the static setDefaultURLTypes(final List<UrlType> urlTypes) or addDefaultURLTypes(UrlType urlType) with your specialized UrlType.
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:113) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) ~[?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) ~[?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.helpComplete(ForkJoinPool.java:1950) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.awaitDone(ForkJoinTask.java:433) ~[?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:687) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateParallel(ForEachOps.java:159) ~[?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateParallel(ForEachOps.java:173) ~[?:?]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233) ~[?:?]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[?:?]
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:765) ~[?:?]
+	at org.reflections.Reflections.scan(Reflections.java:173) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.<init>(Reflections.java:126) ~[reflections-0.10.2.jar:?]
+	at com.thoughtworks.gauge.scan.ClasspathScanner.createReflections(ClasspathScanner.java:57) ~[gauge-java-0.11.1.jar:?]
+	at com.thoughtworks.gauge.scan.ClasspathScanner.scan(ClasspathScanner.java:32) ~[gauge-java-0.11.1.jar:?]
+	at com.thoughtworks.gauge.connection.MessageProcessorFactory.lambda$new$0(MessageProcessorFactory.java:70) ~[gauge-java-0.11.1.jar:?]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+2026-09-28 12:54:43.121 [pool-1-thread-1] INFO  org.reflections.Reflections - Reflections took 1365 ms to scan 98 urls, producing 6121 keys and 39099 values
+2026-09-28 12:54:43.417 [ForkJoinPool.commonPool-worker-1] WARN  org.reflections.Reflections - could not create Dir using com.thoughtworks.gauge.scan.ClasspathScanner$1@61ace1e2 from url file:/Users/erkut/projects/qa-project-101/build/resources/main. skipping.
+java.lang.NullPointerException: Cannot invoke "java.io.File.isDirectory()" because "file" is null
+	at com.thoughtworks.gauge.scan.ClasspathScanner$1.createDir(ClasspathScanner.java:48) ~[gauge-java-0.11.1.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:103) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:54:43.419 [ForkJoinPool.commonPool-worker-1] WARN  org.reflections.Reflections - could not create Vfs.Dir from url. ignoring the exception and continuing
+org.reflections.ReflectionsException: could not create Vfs.Dir from url, no matching UrlType was found [file:/Users/erkut/projects/qa-project-101/build/resources/main]
+either use fromURL(final URL url, final List<UrlType> urlTypes) or use the static setDefaultURLTypes(final List<UrlType> urlTypes) or addDefaultURLTypes(UrlType urlType) with your specialized UrlType.
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:113) ~[reflections-0.10.2.jar:?]
+	at org.reflections.vfs.Vfs.fromURL(Vfs.java:95) ~[reflections-0.10.2.jar:?]
+	at org.reflections.Reflections.lambda$scan$2(Reflections.java:176) ~[reflections-0.10.2.jar:?]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) [?:?]
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1707) [?:?]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) [?:?]
+	at java.base/java.util.stream.ForEachOps$ForEachTask.compute(ForEachOps.java:290) [?:?]
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) [?:?]
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+2026-09-28 12:54:43.630 [pool-2-thread-1] INFO  org.reflections.Reflections - Reflections took 361 ms to scan 98 urls, producing 6006 keys and 27068 values
+2026-09-28 12:54:43.728 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:54:43.731 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 1. Invalid Email Format Rejection
+2026-09-28 12:54:43.731 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Login & Negative Validation Specifications
+2026-09-28 12:54:43.731 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:54:46.343 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:54:59.054 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Navigating to login page via user menu
+2026-09-28 12:54:59.079 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Hovering over element: By.cssSelector: #myAccount, [data-test-id='account'], div[class*='account-user']
+2026-09-28 12:55:01.114 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Entering email: gecersizmail@
+2026-09-28 12:55:01.282 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking login submit button
+2026-09-28 12:55:01.342 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 1. Invalid Email Format Rejection
+2026-09-28 12:55:01.487 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:55:01.487 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🚀 [Gauge Scenario Starting]: 2. Blank Email Field Validation
+2026-09-28 12:55:01.487 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 📄 [Spec]: Login & Negative Validation Specifications
+2026-09-28 12:55:01.487 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - ================================================================================
+2026-09-28 12:55:03.063 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - Navigated to base URL: https://www.hepsiburada.com
+2026-09-28 12:55:15.928 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Navigating to login page via user menu
+2026-09-28 12:55:15.951 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Hovering over element: By.cssSelector: #myAccount, [data-test-id='account'], div[class*='account-user']
+2026-09-28 12:55:17.552 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clearing email input field
+2026-09-28 12:55:17.650 [pool-2-thread-1] INFO  com.hepsiburada.qa.pages.base.BasePage - Clicking login submit button
+2026-09-28 12:55:17.701 [pool-2-thread-1] INFO  com.hepsiburada.qa.hooks.ExecutionHooks - 🏁 [Gauge Scenario Finished]: 2. Blank Email Field Validation

@@ -100,7 +100,7 @@ public class HomePage extends BasePage {
         return search(keyword);
     }
 
-    @Step("Navigate to login page")
+    @Step("Open login page from navigation")
     public LoginPage goToLoginPage() {
         handleCookies();
         log.info("Navigating to login page via user menu");

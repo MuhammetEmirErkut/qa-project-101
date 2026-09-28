@@ -104,7 +104,7 @@ public class LoginPage extends BasePage {
         return "";
     }
 
-    @Step("Verify validation error message is displayed")
+    @Step("Check if validation error message is displayed")
     public boolean isErrorMessageDisplayed() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));

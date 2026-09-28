@@ -38,6 +38,10 @@ test-regression: ## Run Full Regression Test Suite
 	@echo "🔄 Running Full Regression Suite..."
 	@mvn test -DsuiteXmlFile=src/test/resources/suites/regression-tests.xml -Dbrowser=chrome -Dheadless=true -Dremote=false
 
+test-gauge: ## Run Gauge Specification Suite via Gradle
+	@echo "📐 Running Gauge Specifications Suite..."
+	@./gradlew gauge
+
 test-mobile-smoke: ## Run Mobile Web Smoke Tests on Appium (Android Chrome)
 	@echo "📱 Running Mobile Smoke Tests on Appium..."
 	@mvn test -DsuiteXmlFile=src/test/resources/suites/mobile-smoke-tests.xml

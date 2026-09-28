@@ -8,14 +8,15 @@ pipeline {
 
     // Configurable runtime parameters for parameterized test execution
     parameters {
-        choice(name: 'EXECUTION_TYPE', choices: ['MOBILE_WEB', 'WEB_UI', 'API'], description: 'Koşturulacak Test Türü')
+        choice(name: 'EXECUTION_TYPE', choices: ['GAUGE', 'WEB_UI', 'MOBILE_WEB', 'API'], description: 'Koşturulacak Test Türü (Gauge, TestNG Web UI, Mobile Web, REST API)')
+        string(name: 'GAUGE_SPECS_DIR', defaultValue: 'specs', description: 'Gauge: Specification dizini (örn: specs, specs/login, specs/cart, specs/search, specs/pdp, specs/filter)')
         choice(name: 'SUITE_XML', choices: [
-            'src/test/resources/suites/mobile-smoke-tests.xml',
-            'src/test/resources/suites/mobile-regression-tests.xml',
             'src/test/resources/suites/smoke-tests.xml',
             'src/test/resources/suites/regression-tests.xml',
+            'src/test/resources/suites/mobile-smoke-tests.xml',
+            'src/test/resources/suites/mobile-regression-tests.xml',
             'src/test/resources/suites/api-tests.xml'
-        ], description: 'TestNG Suite XML file to run')
+        ], description: 'TestNG Suite XML file to run (TestNG modları için)')
         choice(name: 'BROWSER', choices: ['chrome', 'firefox'], description: 'Web UI: Target browser for execution')
         choice(name: 'HEADLESS', choices: ['true', 'false'], description: 'Web UI: Run browser in headless mode')
         string(name: 'DEVICE_NAME', defaultValue: 'Medium_Phone', description: 'Mobile: Target device / emulator')
@@ -63,12 +64,17 @@ pipeline {
         }
 
         // -------------------------------------------------------------
-        // Stage 3: Execute Test Suite with Maven
+        // Stage 3: Execute Test Suite (Gauge or TestNG)
         // -------------------------------------------------------------
         stage('Execute Automated Tests') {
             steps {
                 script {
-                    if (params.EXECUTION_TYPE == 'MOBILE_WEB') {
+                    if (params.EXECUTION_TYPE == 'GAUGE') {
+                        echo "📐 Starting Gauge Specifications Suite with SpecsDir=${params.GAUGE_SPECS_DIR}"
+                        sh """
+                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
+                        """
+                    } else if (params.EXECUTION_TYPE == 'MOBILE_WEB') {
                         echo "📱 Starting Mobile Web tests against Appium: ${params.APPIUM_SERVER_URL} with Suite=${params.SUITE_XML}"
                         sh """
                             mvn clean test \
@@ -101,7 +107,7 @@ pipeline {
     // Post-Execution Actions
     post {
         always {
-            echo 'Archiving Allure test results and generating report...'
+            echo 'Archiving test results and generating reports...'
             
             // Generate Allure Report from target/allure-results
             allure([
@@ -109,17 +115,27 @@ pipeline {
                 jdk: '',
                 properties: [],
                 reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'target/allure-results']]
+                results: [[path: 'target/allure-results'], [path: 'build/allure-results']]
             ])
 
             // Archive standard JUnit/Surefire XML results
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, build/test-results/**/*.xml'
+
+            // Publish Gauge HTML Report
+            publishHTML([
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'reports/html-report',
+                reportFiles: 'index.html',
+                reportName: 'Gauge Test Report'
+            ])
         }
         success {
             echo 'All automated tests completed successfully! 🚀'
         }
         failure {
-            echo 'Automated tests failed! Please check Allure report for failure details. ❌'
+            echo 'Automated tests failed! Please check Allure / Gauge report for failure details. ❌'
         }
     }
 }

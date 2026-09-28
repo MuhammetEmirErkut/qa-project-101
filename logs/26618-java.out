@@ -1,0 +1,264 @@
+{"logLevel":"debug","message":"multithreading is set to false"}
+{"logLevel":"debug","message":"Using reflection to scan dependencies for gauge implementations..."}
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+{"logLevel":"debug","message":"gauge-java took 587milliseconds to load and scan. This should be less than \u0027runner_connection_timeout\u0027 config value."}
+{"logLevel":"debug","message":"run \u0027gauge config runner_connection_timeout\u0027 and verify that it is \u003c 587"}
+{"logLevel":"debug","message":"starting gRPC server..."}
+{"logLevel":"debug","message":"started gRPC server on port 58404"}
+{"logLevel":"info","message":"Listening on port:58404"}
+{"logLevel":"debug","message":"Scanning packages for steps"}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyReviewsContainerVisible\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyReviewsContainerVisible\u0027"}
+{"logLevel":"debug","message":"Found Verify reviews container or ratings score is visible in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.saveInitialProductPrice\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.saveInitialProductPrice\u0027"}
+{"logLevel":"debug","message":"Found Save initial product price in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.selectAlternativeVariant\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.selectAlternativeVariant\u0027"}
+{"logLevel":"debug","message":"Found Select an alternative variant in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.navigateToHomeAndAcceptCookies\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.navigateToHomeAndAcceptCookies\u0027"}
+{"logLevel":"debug","message":"Found Navigate to home page and accept cookies in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.addProductToCartAndGoToCart\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.addProductToCartAndGoToCart\u0027"}
+{"logLevel":"debug","message":"Found Add product to cart and go to cart page in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyLoginPromptDisplayed\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyLoginPromptDisplayed\u0027"}
+{"logLevel":"debug","message":"Found Verify login modal or login page redirection is displayed in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyPricesAscending\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyPricesAscending\u0027"}
+{"logLevel":"debug","message":"Found Verify top {} product prices are in ascending order in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.openProductReviewsTab\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.openProductReviewsTab\u0027"}
+{"logLevel":"debug","message":"Found Open product reviews tab in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyPriceRange\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyPriceRange\u0027"}
+{"logLevel":"debug","message":"Found Verify top {} product prices are between {} and {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.verifySearchResultsForTerm\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.verifySearchResultsForTerm\u0027"}
+{"logLevel":"debug","message":"Found Verify search results are displayed for {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.pages.home.HomePage.goToLoginPage\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.navigateToLoginPage\u0027"}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.LoginSteps.navigateToLoginPage\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.navigateToLoginPage\u0027"}
+{"logLevel":"debug","message":"Found Navigate to login page in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.verifyNoResultsMessageOrZeroCount\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.verifyNoResultsMessageOrZeroCount\u0027"}
+{"logLevel":"debug","message":"Found Verify no results message is displayed or result count is zero in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.pages.login.LoginPage.isErrorMessageDisplayed\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.verifyErrorMessageDisplayed\u0027"}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.LoginSteps.verifyErrorMessageDisplayed\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.verifyErrorMessageDisplayed\u0027"}
+{"logLevel":"debug","message":"Found Verify validation error message is displayed in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartIsEmpty\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartIsEmpty\u0027"}
+{"logLevel":"debug","message":"Found Verify cart is empty in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.verifySearchResultsExist\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.verifySearchResultsExist\u0027"}
+{"logLevel":"debug","message":"Found Verify search results are displayed in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.pages.search.SearchResultPage.sortByLowestPrice\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.sortProductsByLowestPrice\u0027"}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.sortProductsByLowestPrice\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.sortProductsByLowestPrice\u0027"}
+{"logLevel":"debug","message":"Found Sort products by lowest price in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.filterPriceRange\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.filterPriceRange\u0027"}
+{"logLevel":"debug","message":"Found Filter products with price range {} to {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartContainsItems\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartContainsItems\u0027"}
+{"logLevel":"debug","message":"Found Verify cart contains at least 1 item in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.verifyFirstCartItemNameNotEmpty\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.verifyFirstCartItemNameNotEmpty\u0027"}
+{"logLevel":"debug","message":"Found Verify first cart item name is not empty in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyTopProductTitlesContain\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.verifyTopProductTitlesContain\u0027"}
+{"logLevel":"debug","message":"Found Verify top {} product titles contain {} or {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyProductNameAndUpdatedPrice\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.verifyProductNameAndUpdatedPrice\u0027"}
+{"logLevel":"debug","message":"Found Verify product name and updated price are displayed in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.LoginSteps.leaveEmailBlankAndClickLogin\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.leaveEmailBlankAndClickLogin\u0027"}
+{"logLevel":"debug","message":"Found Leave email blank and click login in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.pages.cart.CartPage.removeFirstProduct\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.removeFirstProductFromCart\u0027"}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.removeFirstProductFromCart\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.removeFirstProductFromCart\u0027"}
+{"logLevel":"debug","message":"Found Remove first product from cart in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.clickWishlistButton\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.clickWishlistButton\u0027"}
+{"logLevel":"debug","message":"Found Click wishlist button in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.searchForProduct\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.searchForProduct\u0027"}
+{"logLevel":"debug","message":"Found Search for product {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.ProductDetailSteps.clickFirstProductAndOpenPdp\u0027 and \u0027com.hepsiburada.qa.steps.ProductDetailSteps.clickFirstProductAndOpenPdp\u0027"}
+{"logLevel":"debug","message":"Found Click first product and navigate to detail page in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.applyBrandFilter\u0027 and \u0027com.hepsiburada.qa.steps.FilterAndSortSteps.applyBrandFilter\u0027"}
+{"logLevel":"debug","message":"Found Apply brand filter {} in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartContainsItemsBeforeRemoval\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.verifyCartContainsItemsBeforeRemoval\u0027"}
+{"logLevel":"debug","message":"Found Verify cart contains at least 1 item before removal in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.SearchSteps.verifyFirstProductTitleNotEmpty\u0027 and \u0027com.hepsiburada.qa.steps.SearchSteps.verifyFirstProductTitleNotEmpty\u0027"}
+{"logLevel":"debug","message":"Found Verify first product title is not empty in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.LoginSteps.enterEmailAndClickLogin\u0027 and \u0027com.hepsiburada.qa.steps.LoginSteps.enterEmailAndClickLogin\u0027"}
+{"logLevel":"debug","message":"Found Enter email {} and click login in current project scope."}
+{"logLevel":"debug","message":"Comparing \u0027com.hepsiburada.qa.steps.CartSteps.saveExpectedProductName\u0027 and \u0027com.hepsiburada.qa.steps.CartSteps.saveExpectedProductName\u0027"}
+{"logLevel":"debug","message":"Found Save expected product name in current project scope."}
+{"logLevel":"debug","message":"Scanning packages for hooks"}
+{"logLevel":"debug","message":"Scanned steps (using static parsing + reflections): "}
+{"logLevel":"debug","message":"\t :  abstract String androidPlatformVersion()"}
+{"logLevel":"debug","message":"\tOpen product reviews tab : public void openProductReviewsTab()"}
+{"logLevel":"debug","message":"\tVerify cart is empty : public void verifyCartIsEmpty()"}
+{"logLevel":"debug","message":"\tmobile.android.headless :  abstract boolean androidHeadless()"}
+{"logLevel":"debug","message":"\tClick wishlist / like button on mobile : public MobileProductDetailPage clickWishlist()"}
+{"logLevel":"debug","message":"\tVerify cart contains at least 1 item before removal : public void verifyCartContainsItemsBeforeRemoval()"}
+{"logLevel":"debug","message":"\tPOST /api/checkout completes order and creates confirmed order ID : public void testCheckoutOrder()"}
+{"logLevel":"debug","message":"\tCheck if reviews or ratings container is visible : public boolean isReviewsContainerVisible()"}
+{"logLevel":"debug","message":"\t1. Navigate to home page\\n2. Search product\\n3. Add product to cart\\n4. Navigate to cart\\n5. Remove item from cart\\n6. Verify cart is empty : public void testRemoveProductFromCart()"}
+{"logLevel":"debug","message":"\tEnter email {} and click login : public void enterEmailAndClickLogin(String email)"}
+{"logLevel":"debug","message":"\tMobile Variant Selection : public void shouldUpdateProductWhenVariantSelected()"}
+{"logLevel":"debug","message":"\tremote :  abstract boolean remote()"}
+{"logLevel":"debug","message":"\tmobile.android.chromedriver.autodownload :  abstract boolean androidChromeDriverAutoDownload()"}
+{"logLevel":"debug","message":"\tGet first cart item name on mobile : public String getFirstCartItemName()"}
+{"logLevel":"debug","message":"\tXCUITest :  abstract String iosAutomationName()"}
+{"logLevel":"debug","message":"\tiPhone 15 Pro :  abstract String iosDeviceName()"}
+{"logLevel":"debug","message":"\tSearch for product on mobile: \u0027{keyword}\u0027 : public MobileSearchResultPage search(String keyword)"}
+{"logLevel":"debug","message":"\tClick login button on mobile : public MobileLoginPage clickLoginButton()"}
+{"logLevel":"debug","message":"\tmobile.command.timeout :  abstract int commandTimeout()"}
+{"logLevel":"debug","message":"\tCheck if no results message is displayed on mobile : public boolean isNoResultsMessageDisplayed()"}
+{"logLevel":"debug","message":"\tSelect an alternative variant : public void selectAlternativeVariant()"}
+{"logLevel":"debug","message":"\tVerify search results are displayed for {} : public void verifySearchResultsForTerm(String searchTerm)"}
+{"logLevel":"debug","message":"\tGet no results message text from search result page : public String getNoResultsMessageText()"}
+{"logLevel":"debug","message":"\tVerify login prompt or redirect is displayed on mobile : public boolean isLoginRequiredPromptDisplayed()"}
+{"logLevel":"debug","message":"\tClick the product in Search Result Page and switch to detail page : public ProductDetailPage clickFirstProduct()"}
+{"logLevel":"debug","message":"\tmobile.android.browser.name :  abstract String androidBrowserName()"}
+{"logLevel":"debug","message":"\t10 :  abstract int implicitWait()"}
+{"logLevel":"debug","message":"\tVerify that unauthenticated user is redirected to login or prompted with login modal when clicking favorite/wishlist icon on mobile : public void shouldRequireLoginWhenGuestAddsToWishlist()"}
+{"logLevel":"debug","message":"\t15 :  abstract int explicitWait()"}
+{"logLevel":"debug","message":"\tEmpty Form Submission : public void shouldShowErrorForEmptyEmailSubmission()"}
+{"logLevel":"debug","message":"\tmobile.platform :  abstract String platform()"}
+{"logLevel":"debug","message":"\tCheck if no results message is displayed : public boolean isNoResultsMessageDisplayed()"}
+{"logLevel":"debug","message":"\tApply brand filter {} : public void applyBrandFilter(String brandName)"}
+{"logLevel":"debug","message":"\tSeverityLevel.BLOCKER : public void testHealthCheck()"}
+{"logLevel":"debug","message":"\tappium.server.url :  abstract String appiumServerUrl()"}
+{"logLevel":"debug","message":"\tmobile.explicit.wait :  abstract int explicitWait()"}
+{"logLevel":"debug","message":"\tClick first product on mobile search result page : public MobileProductDetailPage clickFirstProduct()"}
+{"logLevel":"debug","message":"\tSave expected product name : public void saveExpectedProductName()"}
+{"logLevel":"debug","message":"\tmobile.base.url :  abstract String mobileBaseUrl()"}
+{"logLevel":"debug","message":"\tMedium_Phone :  abstract String androidDeviceName()"}
+{"logLevel":"debug","message":"\t1. Navigate to mobile website\\n2. Search product\\n3. Click first product\\n4. Add product to cart\\n5. Navigate to cart\\n6. Verify product in cart : public void testAddProductToCart()"}
+{"logLevel":"debug","message":"\tGo to cart page : public CartPage goToCart()"}
+{"logLevel":"debug","message":"\tVerify that clicking \u0027Değerlendirmeler\u0027 (Reviews) tab displays the rating summary or user reviews : public void shouldDisplayReviewsWhenReviewsTabClicked()"}
+{"logLevel":"debug","message":"\tGet first title from mobile search result page : public String getFirstTitle()"}
+{"logLevel":"debug","message":"\tANDROID :  abstract String platform()"}
+{"logLevel":"debug","message":"\tGo to cart page from mobile PDP : public MobileCartPage goToCart()"}
+{"logLevel":"debug","message":"\tVerify validation error message is displayed : public boolean isErrorMessageDisplayed()"}
+{"logLevel":"debug","message":"\tMobile Invalid Email Format : public void shouldShowErrorForInvalidEmailFormat()"}
+{"logLevel":"debug","message":"\tAdd product to cart and go to cart page : public void addProductToCartAndGoToCart()"}
+{"logLevel":"debug","message":"\tClick wishlist / like button : public ProductDetailPage clickWishlist()"}
+{"logLevel":"debug","message":"\tVerify that clicking \u0027Değerlendirmeler\u0027 (Reviews) tab displays the rating summary or user reviews on mobile : public void shouldDisplayReviewsWhenReviewsTabClicked()"}
+{"logLevel":"debug","message":"\tClear email input on mobile login : public MobileLoginPage clearEmailInput()"}
+{"logLevel":"debug","message":"\tVerify first cart item name is not empty : public void verifyFirstCartItemNameNotEmpty()"}
+{"logLevel":"debug","message":"\tGET /api/cart without Authorization header should return HTTP 401 : public void testGetCartUnauthorized()"}
+{"logLevel":"debug","message":"\tVerify no results message is displayed or result count is zero : public void verifyNoResultsMessageOrZeroCount()"}
+{"logLevel":"debug","message":"\t1. Navigate to home page\\n2. Search \u0027Laptop\u0027\\n3. Filter by brand \u0027Apple\u0027\\n4. Verify first products contain brand name : public void testFilterByBrand()"}
+{"logLevel":"debug","message":"\tSeverityLevel.NORMAL : public void testSortByLowestPrice()"}
+{"logLevel":"debug","message":"\tNegative Mobile Search : public void testSearchNonExistingProduct()"}
+{"logLevel":"debug","message":"\tVerify login modal or login page redirection is displayed : public void verifyLoginPromptDisplayed()"}
+{"logLevel":"debug","message":"\tOpen reviews and ratings tab on mobile : public MobileProductDetailPage openReviewsTab()"}
+{"logLevel":"debug","message":"\tmobile.ios.device.name :  abstract String iosDeviceName()"}
+{"logLevel":"debug","message":"\thttp://127.0.0.1:4723/ :  abstract String appiumServerUrl()"}
+{"logLevel":"debug","message":"\tMobile Price Sorting : public void testSortByLowestPrice()"}
+{"logLevel":"debug","message":"\tNavigate to mobile login page : public MobileLoginPage goToLoginPage()"}
+{"logLevel":"debug","message":"\tAdd product to cart : public ProductDetailPage addToCart()"}
+{"logLevel":"debug","message":"\tPOST /api/cart/items adds product to user cart : public void testAddItemToCart()"}
+{"logLevel":"debug","message":"\tMobile Empty Form Submission : public void shouldShowErrorForEmptyEmailSubmission()"}
+{"logLevel":"debug","message":"\tmobile.implicit.wait :  abstract int implicitWait()"}
+{"logLevel":"debug","message":"\tGet product price as text on mobile PDP : public String getProductPriceText()"}
+{"logLevel":"debug","message":"\tGET /api/products/9999 returns HTTP 404 Not Found : public void testGetProductByIdNotFound()"}
+{"logLevel":"debug","message":"\tVerify first product title is not empty : public void verifyFirstProductTitleNotEmpty()"}
+{"logLevel":"debug","message":"\t1. Navigate to mobile website\\n2. Search product\\n3. Add product to cart\\n4. Navigate to cart\\n5. Remove item\\n6. Verify cart is empty : public void testRemoveProductFromCart()"}
+{"logLevel":"debug","message":"\tgridUrl :  abstract String gridUrl()"}
+{"logLevel":"debug","message":"\tVerify top {} product prices are in ascending order : public void verifyPricesAscending(int limit)"}
+{"logLevel":"debug","message":"\tHandle mobile cookie consent banner : public void handleCookies()"}
+{"logLevel":"debug","message":"\tGet cart item count on mobile : public int getCartItemCount()"}
+{"logLevel":"debug","message":"\tGET /api/cart retrieves current cart and calculated totals : public void testGetCartContents()"}
+{"logLevel":"debug","message":"\t1. Navigate to home page\\n2. Search for a non-existing product\\n3. Verify zero results or no results message : public void testSearchNonExistingProduct()"}
+{"logLevel":"debug","message":"\tmobile.android.platform.version :  abstract String androidPlatformVersion()"}
+{"logLevel":"debug","message":"\tmobile.ios.automation.name :  abstract String iosAutomationName()"}
+{"logLevel":"debug","message":"\t300 :  abstract int commandTimeout()"}
+{"logLevel":"debug","message":"\tVerify login prompt or redirect is displayed : public boolean isLoginRequiredPromptDisplayed()"}
+{"logLevel":"debug","message":"\t1. Search \u0027Monitor\u0027\\n2. Apply price filter (3000 TL - 7000 TL)\\n3. Verify products are within price range : public void testFilterByPriceRange()"}
+{"logLevel":"debug","message":"\t1. User navigates to the website\\n2. User searches for a product\\n3. User clicks on the first product\\n4. User adds the product to the cart\\n5. User navigates to the cart\\n6. User verifies that the product is added to the cart : public void testAddProductToCart()"}
+{"logLevel":"debug","message":"\tSearch for product: \u0027{keyword}\u0027 : public SearchResultPage search(String keyword)"}
+{"logLevel":"debug","message":"\t17.4 :  abstract String iosPlatformVersion()"}
+{"logLevel":"debug","message":"\tVerify that selecting a different variant (color/size/storage) updates product price or selection state on mobile PDP : public void shouldUpdateProductWhenVariantSelected()"}
+{"logLevel":"debug","message":"\tVerify that selecting a different variant (color/size/storage) updates product price or selection state : public void shouldUpdateProductWhenVariantSelected()"}
+{"logLevel":"debug","message":"\tmobile.ios.browser.name :  abstract String iosBrowserName()"}
+{"logLevel":"debug","message":"\tClick login submit button : public LoginPage clickLoginButton()"}
+{"logLevel":"debug","message":"\tVerify top {} product titles contain {} or {} : public void verifyTopProductTitlesContain(int limit, String keyword1, String keyword2)"}
+{"logLevel":"debug","message":"\tSelect product variant option: {variantText} : public ProductDetailPage selectVariant(String variantText)"}
+{"logLevel":"debug","message":"\tmobile.android.device.name :  abstract String androidDeviceName()"}
+{"logLevel":"debug","message":"\tMobile Price Range Filter : public void testFilterByPriceRange()"}
+{"logLevel":"debug","message":"\tVerify that an error message is displayed when entering an invalid email format (e.g. test@ or gecersizmail) : public void shouldShowErrorForInvalidEmailFormat()"}
+{"logLevel":"debug","message":"\tEnter email: {email} : public LoginPage enterEmail(String email)"}
+{"logLevel":"debug","message":"\tVariant Selection : public void shouldUpdateProductWhenVariantSelected()"}
+{"logLevel":"debug","message":"\tSafari :  abstract String iosBrowserName()"}
+{"logLevel":"debug","message":"\t1. Navigate to home page\\n2. Search for a product\\n3. Verify search results : public void testSearchProducts()"}
+{"logLevel":"debug","message":"\tSave initial product price : public void saveInitialProductPrice()"}
+{"logLevel":"debug","message":"\tUiAutomator2 :  abstract String androidAutomationName()"}
+{"logLevel":"debug","message":"\tOpen reviews and ratings tab : public ProductDetailPage openReviewsTab()"}
+{"logLevel":"debug","message":"\tCheck if cart is empty : public boolean isCartEmpty()"}
+{"logLevel":"debug","message":"\t1. Navigate to mobile home page\\n2. Search for a product\\n3. Verify mobile search results count and first product title : public void testSearchProducts()"}
+{"logLevel":"debug","message":"\tWishlist Authentication : public void shouldRequireLoginWhenGuestAddsToWishlist()"}
+{"logLevel":"debug","message":"\tFilter products with price range {} to {} : public void filterPriceRange(String minPrice, String maxPrice)"}
+{"logLevel":"debug","message":"\tClick first product and navigate to detail page : public void clickFirstProductAndOpenPdp()"}
+{"logLevel":"debug","message":"\tVerify reviews container or ratings score is visible : public void verifyReviewsContainerVisible()"}
+{"logLevel":"debug","message":"\tGet product count from mobile search result page : public int getResultCount()"}
+{"logLevel":"debug","message":"\tVerify that unauthenticated user is redirected to login or prompted with login modal when clicking favorite/wishlist icon : public void shouldRequireLoginWhenGuestAddsToWishlist()"}
+{"logLevel":"debug","message":"\tVerify that a required field warning is displayed when submitting empty email input : public void shouldShowErrorForEmptyEmailSubmission()"}
+{"logLevel":"debug","message":"\tSeverityLevel.CRITICAL : public void testFilterByBrand()"}
+{"logLevel":"debug","message":"\tchrome :  abstract String browser()"}
+{"logLevel":"debug","message":"\tNavigate to login page : public LoginPage goToLoginPage()"}
+{"logLevel":"debug","message":"\thttps://www.hepsiburada.com :  abstract String mobileBaseUrl()"}
+{"logLevel":"debug","message":"\tFilter products by price range: {minPrice} - {maxPrice} : public SearchResultPage filterByPriceRange(String minPrice, String maxPrice)"}
+{"logLevel":"debug","message":"\tVerify that an error message is displayed when entering an invalid email format on mobile (e.g. test@ or gecersizmail) : public void shouldShowErrorForInvalidEmailFormat()"}
+{"logLevel":"debug","message":"\tCheck if error message is displayed on mobile login : public boolean isErrorMessageDisplayed()"}
+{"logLevel":"debug","message":"\texplicitWait :  abstract int explicitWait()"}
+{"logLevel":"debug","message":"\tGet product name from product detail page : public String getProductName()"}
+{"logLevel":"debug","message":"\tPOST /api/auth/login with valid tester credentials returns JWT token : public void testValidLogin()"}
+{"logLevel":"debug","message":"\tmobile.ios.platform.version :  abstract String iosPlatformVersion()"}
+{"logLevel":"debug","message":"\tSort products by lowest price on mobile : public MobileSearchResultPage sortByLowestPrice()"}
+{"logLevel":"debug","message":"\t1. Search \u0027Kulaklık\u0027\\n2. Sort by lowest price\\n3. Verify that first item price is less than or equal to second item : public void testSortByLowestPrice()"}
+{"logLevel":"debug","message":"\tBasic Mobile Search : public void testSearchProducts()"}
+{"logLevel":"debug","message":"\ttrue :  abstract boolean androidChromeDriverAutoDownload()"}
+{"logLevel":"debug","message":"\tClear email input field : public LoginPage clearEmailInput()"}
+{"logLevel":"debug","message":"\tVerify that a required field warning is displayed when submitting empty email input on mobile : public void shouldShowErrorForEmptyEmailSubmission()"}
+{"logLevel":"debug","message":"\tGet top {limit} product titles on mobile : public List\u003cString\u003e getTopProductTitles(int limit)"}
+{"logLevel":"debug","message":"\tSelect product variant option on mobile: {variantText} : public MobileProductDetailPage selectVariant(String variantText)"}
+{"logLevel":"debug","message":"\tMobile Wishlist Authentication : public void shouldRequireLoginWhenGuestAddsToWishlist()"}
+{"logLevel":"debug","message":"\tmobile.android.automation.name :  abstract String androidAutomationName()"}
+{"logLevel":"debug","message":"\thttp://localhost:4444 :  abstract String gridUrl()"}
+{"logLevel":"debug","message":"\tAdd product to cart on mobile : public MobileProductDetailPage addToCart()"}
+{"logLevel":"debug","message":"\tCheck if reviews or ratings container is visible on mobile : public boolean isReviewsContainerVisible()"}
+{"logLevel":"debug","message":"\tProduct Reviews : public void shouldDisplayReviewsWhenReviewsTabClicked()"}
+{"logLevel":"debug","message":"\tGET /api/health should return HTTP 200 and status UP : public void testHealthCheck()"}
+{"logLevel":"debug","message":"\tPOST /api/auth/login with empty body returns HTTP 400 : public void testMissingCredentials()"}
+{"logLevel":"debug","message":"\tGet error message on mobile login : public String getErrorMessage()"}
+{"logLevel":"debug","message":"\tPOST /api/auth/login with invalid password returns HTTP 401 : public void testInvalidLogin()"}
+{"logLevel":"debug","message":"\tGet product price as text : public String getProductPriceText()"}
+{"logLevel":"debug","message":"\tInvalid Email Format : public void shouldShowErrorForInvalidEmailFormat()"}
+{"logLevel":"debug","message":"\tGET /api/products?category\u003dTelefon filters products in phone category : public void testFilterProductsByCategory()"}
+{"logLevel":"debug","message":"\tGET /api/products/1 returns detailed info for iPhone 15 Pro : public void testGetProductByIdSuccess()"}
+{"logLevel":"debug","message":"\tbrowser :  abstract String browser()"}
+{"logLevel":"debug","message":"\tFilter products by brand: {brandName} : public SearchResultPage filterByBrand(String brandName)"}
+{"logLevel":"debug","message":"\tGet validation error message text : public String getErrorMessage()"}
+{"logLevel":"debug","message":"\tVerify multiple search queries on mobile browser using JSON data provider : public void testSearchProductsWithDataProvider(String searchTerm)"}
+{"logLevel":"debug","message":"\tMobile Brand Filter : public void testFilterByBrand()"}
+{"logLevel":"debug","message":"\tGet product name from mobile PDP : public String getProductName()"}
+{"logLevel":"debug","message":"\tChrome :  abstract String androidBrowserName()"}
+{"logLevel":"debug","message":"\tGet top {limit} product titles : public List\u003cString\u003e getTopProductTitles(int limit)"}
+{"logLevel":"debug","message":"\tSelect first available alternative variant on mobile : public MobileProductDetailPage selectFirstAvailableAlternativeVariant()"}
+{"logLevel":"debug","message":"\tData-Driven Mobile Search : public void testSearchProductsWithDataProvider(String searchTerm)"}
+{"logLevel":"debug","message":"\tVerify top {} product prices are between {} and {} : public void verifyPriceRange(int limit, double minPrice, double maxPrice)"}
+{"logLevel":"debug","message":"\tEnter email on mobile login: {email} : public MobileLoginPage enterEmail(String email)"}
+{"logLevel":"debug","message":"\tMobile Product Reviews : public void shouldDisplayReviewsWhenReviewsTabClicked()"}
+{"logLevel":"debug","message":"\tNavigate to home page and accept cookies : public void navigateToHomeAndAcceptCookies()"}
+{"logLevel":"debug","message":"\tGET /api/products returns HTTP 200 with complete product list : public void testGetAllProducts()"}
+{"logLevel":"debug","message":"\tLeave email blank and click login : public void leaveEmailBlankAndClickLogin()"}
+{"logLevel":"debug","message":"\tVerify cart contains at least 1 item : public void verifyCartContainsItems()"}
+{"logLevel":"debug","message":"\t1. Navigate to mobile home page\\n2. Search for a non-existing product\\n3. Verify zero results or no results message : public void testSearchNonExistingProduct()"}
+{"logLevel":"debug","message":"\tSort products by lowest price : public SearchResultPage sortByLowestPrice()"}
+{"logLevel":"debug","message":"\tMobile Add To Cart : public void testAddProductToCart()"}
+{"logLevel":"debug","message":"\tfalse :  abstract boolean androidHeadless()"}
+{"logLevel":"debug","message":"\tVerify product name and updated price are displayed : public void verifyProductNameAndUpdatedPrice()"}
+{"logLevel":"debug","message":"\tClick wishlist button : public void clickWishlistButton()"}
+{"logLevel":"debug","message":"\tGet product count from search result page : public int getResultCount()"}
+{"logLevel":"debug","message":"\theadless :  abstract boolean headless()"}
+{"logLevel":"debug","message":"\tSearch for product {} : public void searchForProduct(String keyword)"}
+{"logLevel":"debug","message":"\tbaseUrl :  abstract String baseUrl()"}
+{"logLevel":"debug","message":"\tRemove first product from cart on mobile : public MobileCartPage removeFirstProduct()"}
+{"logLevel":"debug","message":"\tCheck if cart is empty on mobile : public boolean isCartEmpty()"}
+{"logLevel":"debug","message":"\tGet top {limit} product prices : public List\u003cDouble\u003e getTopProductPrices(int limit)"}
+{"logLevel":"debug","message":"\tGET /api/products?search\u003diPhone filters products containing keyword : public void testSearchProductsByKeyword()"}
+{"logLevel":"debug","message":"\tGet first title from search result page : public String getFirstTitle()"}
+{"logLevel":"debug","message":"\tGet top {limit} product prices on mobile : public List\u003cDouble\u003e getTopProductPrices(int limit)"}
+{"logLevel":"debug","message":"\tRemove first product from cart : public CartPage removeFirstProduct()"}
+{"logLevel":"debug","message":"\tVerify search results are displayed : public void verifySearchResultsExist()"}
+{"logLevel":"debug","message":"\t1. Navigate to mobile home page\\n2. Search \u0027Laptop\u0027\\n3. Filter by brand \u0027Apple\u0027\\n4. Verify first products contain brand name : public void testFilterByBrand()"}
+{"logLevel":"debug","message":"\tSelect first available alternative variant : public ProductDetailPage selectFirstAvailableAlternativeVariant()"}
+{"logLevel":"debug","message":"\tMobile Remove From Cart : public void testRemoveProductFromCart()"}
+{"logLevel":"debug","message":"Killing Java runner..."}
+{"logLevel":"debug","message":"Stopping execution pool..."}
+{"logLevel":"debug","message":"Shutting down grpc server..."}

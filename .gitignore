@@ -2,8 +2,13 @@
 # Git Ignore Configuration for QA Test Automation Project (qa-project-101)
 # =============================================================================
 
-# --- Maven Build & Compiled Classes ---
+# --- Maven & Gradle Build & Compiled Classes ---
 target/
+build/
+.gradle/
+libs/
+reports/
+.gauge/
 *.class
 *.jar
 *.war

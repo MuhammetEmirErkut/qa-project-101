@@ -253,7 +253,7 @@ public class CartPage extends BasePage {
         return "Product in Cart";
     }
     
-    @Step("Remove first product from cart")
+    @Step("Execute remove first product from cart")
     public CartPage removeFirstProduct() {
         log.info("Removing first product from cart");
         WebElement deleteBtn = null;

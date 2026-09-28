@@ -1,0 +1,8 @@
+# Add <keyword> to cart and navigate
+* Search for <keyword> and navigate to PDP
+* Save expected product name
+* Add product to cart and go to cart page
+
+# Add <keyword> to cart and verify items exist
+* Add <keyword> to cart and navigate
+* Verify cart contains at least 1 item
