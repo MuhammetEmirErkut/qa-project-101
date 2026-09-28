@@ -53,18 +53,26 @@ public class CartPage extends BasePage {
     }
 
     public void waitForCartPageLoad() {
+        handleCookies();
+        handleGuestLoginIfPresent();
+
         if (!driver.getCurrentUrl().contains("checkout") && !driver.getCurrentUrl().contains("sepet")) {
             try {
                 WebDriverWait navWait = new WebDriverWait(driver, Duration.ofSeconds(5));
                 navWait.until(ExpectedConditions.or(
                     ExpectedConditions.urlContains("checkout.hepsiburada.com"),
-                    ExpectedConditions.urlContains("sepetim")
+                    ExpectedConditions.urlContains("sepetim"),
+                    ExpectedConditions.urlContains("giris.hepsiburada.com")
                 ));
             } catch (Exception e) {
                 driver.get("https://checkout.hepsiburada.com/sepetim");
             }
+            handleGuestLoginIfPresent();
         }
         waitForPageToLoad();
+        handleCookies();
+        handleGuestLoginIfPresent();
+
         try {
             new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.or(
@@ -75,9 +83,52 @@ public class CartPage extends BasePage {
                 ));
         } catch (Exception ignored) {
         }
-    } 
+    }
+
+    private void handleGuestLoginIfPresent() {
+        try {
+            String currentUrl = driver.getCurrentUrl().toLowerCase();
+            if (currentUrl.contains("giris.hepsiburada.com") || currentUrl.contains("oauth") || currentUrl.contains("isLazyRegistration".toLowerCase())) {
+                log.info("Detected login/guest prompt page ({}), attempting to click 'Üye olmadan devam et'", currentUrl);
+                handleCookies();
+
+                By[] guestLocators = new By[]{
+                    By.xpath("//a[contains(text(), 'Üye olmadan devam et') or contains(., 'Üye olmadan')]"),
+                    By.xpath("//button[contains(text(), 'Üye olmadan devam et') or contains(., 'Üye olmadan')]"),
+                    By.cssSelector("a[href*='isLazyRegistration'], a[href*='lazyContinueUrl'], a[class*='guest'], [data-test-id='guest-continue']"),
+                    By.xpath("//*[contains(text(), 'Üye olmadan devam et') or contains(text(), 'Üye olmadan')]")
+                };
+
+                for (By loc : guestLocators) {
+                    try {
+                        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(4));
+                        WebElement guestBtn = shortWait.until(ExpectedConditions.elementToBeClickable(loc));
+                        scrollIntoView(guestBtn);
+                        jsClick(guestBtn);
+                        log.info("Successfully clicked 'Üye olmadan devam et'");
+                        break;
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                try {
+                    WebDriverWait redirectWait = new WebDriverWait(driver, Duration.ofSeconds(8));
+                    redirectWait.until(ExpectedConditions.or(
+                        ExpectedConditions.urlContains("checkout.hepsiburada.com"),
+                        ExpectedConditions.urlContains("sepetim")
+                    ));
+                    waitForPageToLoad();
+                    handleCookies();
+                } catch (Exception ignored) {
+                }
+            }
+        } catch (Exception ignored) {
+        }
+    }
 
     public int getCartItemCount() {
+        handleGuestLoginIfPresent();
+
         // First wait for either item presence or explicit empty message
         try {
             new WebDriverWait(driver, Duration.ofSeconds(8))
