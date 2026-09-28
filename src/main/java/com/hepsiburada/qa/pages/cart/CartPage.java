@@ -88,10 +88,11 @@ public class CartPage extends BasePage {
     private void handleGuestLoginIfPresent() {
         try {
             String currentUrl = driver.getCurrentUrl().toLowerCase();
-            if (currentUrl.contains("giris.hepsiburada.com") || currentUrl.contains("oauth") || currentUrl.contains("isLazyRegistration".toLowerCase())) {
-                log.info("Detected login/guest prompt page ({}), attempting to click 'Üye olmadan devam et'", currentUrl);
+            if (currentUrl.contains("giris.hepsiburada.com") || currentUrl.contains("oauth") || currentUrl.contains("isLazyRegistration".toLowerCase()) || currentUrl.contains("uyelik")) {
+                log.info("Detected login/guest prompt page ({}), attempting to process guest flow", currentUrl);
                 handleCookies();
 
+                // Step 1: Click 'Üye olmadan devam et' if link/button is present
                 By[] guestLocators = new By[]{
                     By.xpath("//a[contains(text(), 'Üye olmadan devam et') or contains(., 'Üye olmadan')]"),
                     By.xpath("//button[contains(text(), 'Üye olmadan devam et') or contains(., 'Üye olmadan')]"),
@@ -101,12 +102,50 @@ public class CartPage extends BasePage {
 
                 for (By loc : guestLocators) {
                     try {
-                        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(4));
+                        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
                         WebElement guestBtn = shortWait.until(ExpectedConditions.elementToBeClickable(loc));
                         scrollIntoView(guestBtn);
                         jsClick(guestBtn);
                         log.info("Successfully clicked 'Üye olmadan devam et'");
                         break;
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                // Step 2: Check if 'E-posta adresiniz' guest email form is displayed (as per Hepsiburada guest checkout flow)
+                By[] guestEmailInputs = new By[]{
+                    By.cssSelector("input[type='email'], input[placeholder*='E-posta' i], input[placeholder*='eposta' i], input[name='email'], input[name='username']"),
+                    By.xpath("//input[contains(@placeholder, 'E-posta') or contains(@placeholder, 'eposta') or @type='email']")
+                };
+
+                for (By emailLoc : guestEmailInputs) {
+                    try {
+                        WebDriverWait emailWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+                        WebElement emailInput = emailWait.until(ExpectedConditions.visibilityOfElementLocated(emailLoc));
+                        if (emailInput.isDisplayed()) {
+                            String guestEmail = "guest.test." + System.currentTimeMillis() + "@gmail.com";
+                            emailInput.clear();
+                            emailInput.sendKeys(guestEmail);
+                            log.info("Entered guest email: {}", guestEmail);
+
+                            By[] continueBtns = new By[]{
+                                By.xpath("//button[contains(., 'Devam et') or contains(., 'Devam Et') or contains(., 'DEVAM ET')]"),
+                                By.cssSelector("button[type='submit'], button[class*='submit'], button[class*='continue']")
+                            };
+                            for (By cBtnLoc : continueBtns) {
+                                try {
+                                    WebElement cBtn = driver.findElement(cBtnLoc);
+                                    if (cBtn.isDisplayed()) {
+                                        scrollIntoView(cBtn);
+                                        jsClick(cBtn);
+                                        log.info("Clicked 'Devam et' button on guest email screen");
+                                        break;
+                                    }
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            break;
+                        }
                     } catch (Exception ignored) {
                     }
                 }
