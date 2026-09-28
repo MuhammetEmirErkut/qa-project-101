@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script {
                     if (params.EXECUTION_TYPE == 'GAUGE') {
-                        echo "📐 Starting Gauge Specifications Suite with SpecsDir=${params.GAUGE_SPECS_DIR}"
+                        echo "📐 Starting Gauge Specifications Suite on Selenium Grid with SpecsDir=${params.GAUGE_SPECS_DIR}"
                         sh """
                             mkdir -p \$HOME/.local/bin
                             export PATH=\$HOME/.local/bin:\$PATH
@@ -79,9 +79,19 @@ pipeline {
                                 curl -SsL https://downloads.gauge.org/stable | sh -s -- --location=\$HOME/.local/bin
                                 gauge install java || true
                                 gauge install html-report || true
+                                gauge install xml-report || true
+                            else
+                                gauge install xml-report || true
                             fi
+
+                            # Export Grid configuration for Owner ConfigReader
+                            export remote=true
+                            export gridUrl="${SELENIUM_REMOTE_URL}"
+                            export headless="${params.HEADLESS}"
+                            export browser="${params.BROWSER}"
+
                             chmod +x ./gradlew
-                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
+                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}" -Dremote=true -DgridUrl="${SELENIUM_REMOTE_URL}" -Dheadless="${params.HEADLESS}" -Dbrowser="${params.BROWSER}"
                         """
                     } else if (params.EXECUTION_TYPE == 'MOBILE_WEB') {
                         echo "📱 Starting Mobile Web tests against Appium: ${params.APPIUM_SERVER_URL} with Suite=${params.SUITE_XML}"
@@ -128,7 +138,7 @@ pipeline {
             ])
 
             // Archive standard JUnit/Surefire XML results
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, build/test-results/**/*.xml'
+            junit allowEmptyResults: true, testResults: 'reports/xml-report/*.xml, target/surefire-reports/*.xml, build/test-results/**/*.xml'
 
             // Publish Gauge HTML Report
             publishHTML([

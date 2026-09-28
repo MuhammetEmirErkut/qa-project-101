@@ -9,9 +9,12 @@ import org.openqa.selenium.WebDriver;
 public class CustomScreenshotGrabber implements ICustomScreenshotGrabber {
     @Override
     public byte[] takeScreenshot() {
-        WebDriver driver = DriverFactory.getDriver();
-        if (driver instanceof TakesScreenshot){
-            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        try {
+            WebDriver driver = DriverFactory.getDriver();
+            if (driver instanceof TakesScreenshot) {
+                return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            }
+        } catch (Exception ignored) {
         }
         return new byte[0];
     }

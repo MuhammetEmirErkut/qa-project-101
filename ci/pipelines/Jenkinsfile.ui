@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     if (params.TEST_RUNNER == 'GAUGE') {
-                        echo "📐 Running Gauge UI Specifications with specsDir=${params.GAUGE_SPECS_DIR}"
+                        echo "📐 Running Gauge UI Specifications on Selenium Grid with specsDir=${params.GAUGE_SPECS_DIR}"
                         sh """
                             mkdir -p \$HOME/.local/bin
                             export PATH=\$HOME/.local/bin:\$PATH
@@ -55,9 +55,19 @@ pipeline {
                                 curl -SsL https://downloads.gauge.org/stable | sh -s -- --location=\$HOME/.local/bin
                                 gauge install java || true
                                 gauge install html-report || true
+                                gauge install xml-report || true
+                            else
+                                gauge install xml-report || true
                             fi
+                            
+                            # Export Grid configuration for Owner ConfigReader
+                            export remote=true
+                            export gridUrl="${SELENIUM_REMOTE_URL}"
+                            export headless="${params.HEADLESS}"
+                            export browser="${params.BROWSER}"
+
                             chmod +x ./gradlew
-                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
+                            ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}" -Dremote=true -DgridUrl="${SELENIUM_REMOTE_URL}" -Dheadless="${params.HEADLESS}" -Dbrowser="${params.BROWSER}"
                         """
                     } else {
                         echo "🌐 Running TestNG UI Tests with Browser=${params.BROWSER}, Headless=${params.HEADLESS}, Threads=${params.THREAD_COUNT}"
@@ -85,7 +95,7 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: 'target/allure-results'], [path: 'build/allure-results']]
             ])
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, build/test-results/**/*.xml'
+            junit allowEmptyResults: true, testResults: 'reports/xml-report/*.xml, target/surefire-reports/*.xml, build/test-results/**/*.xml'
             publishHTML([
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
