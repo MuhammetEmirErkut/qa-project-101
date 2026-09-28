@@ -26,7 +26,28 @@ public class ExecutionHooks {
 
         config = ConfigFactory.create(ConfigReader.class);
 
-        DriverFactory.initDriver(config.browser(), config.remote(), config.gridUrl(), config.headless());
+        String browser = System.getProperty("browser", System.getenv().getOrDefault("browser", System.getenv().getOrDefault("BROWSER", config.browser())));
+        
+        String remoteStr = System.getProperty("remote", System.getenv().getOrDefault("remote", System.getenv().getOrDefault("REMOTE", String.valueOf(config.remote()))));
+        boolean isRemote = Boolean.parseBoolean(remoteStr);
+
+        String gridUrl = System.getProperty("gridUrl", System.getenv().getOrDefault("gridUrl", System.getenv().getOrDefault("GRID_URL", System.getenv().getOrDefault("SELENIUM_REMOTE_URL", config.gridUrl()))));
+        
+        String headlessStr = System.getProperty("headless", System.getenv().getOrDefault("headless", System.getenv().getOrDefault("HEADLESS", String.valueOf(config.headless()))));
+        boolean isHeadless = Boolean.parseBoolean(headlessStr);
+
+        // Auto-detect Docker / Jenkins CI container environment
+        if (System.getenv("JENKINS_HOME") != null || System.getenv("JENKINS_URL") != null) {
+            isRemote = true;
+            isHeadless = true;
+            if (gridUrl == null || gridUrl.contains("localhost")) {
+                gridUrl = "http://selenium-hub:4444";
+            }
+            log.info("Detected Jenkins CI environment. Automatically routing to Selenium Grid: {}", gridUrl);
+        }
+
+        log.info("Initializing WebDriver -> Browser: {}, Remote: {}, GridUrl: {}, Headless: {}", browser, isRemote, gridUrl, isHeadless);
+        DriverFactory.initDriver(browser, isRemote, gridUrl, isHeadless);
 
         WebDriver driver = DriverFactory.getDriver();
         driver.get(config.baseUrl());
