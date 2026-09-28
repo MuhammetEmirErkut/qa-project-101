@@ -21,10 +21,26 @@ public class SearchResultPage extends BasePage {
         super(driver);
     }
 
-    private final By resultItems = By.cssSelector("article[data-test-id='product-card'], li[id^='i'], div[data-test-id='product-card-container'], [data-test-id='product-card-name'], li[class*='productListContent'], ul[class*='productListContent'] > li");
-    private final By firstProductLink = By.cssSelector("article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, a[data-test-id='product-card-name'], li[class*='productListContent'] a, ul[class*='productListContent'] > li a");
-    private final By resultCountLabel = By.cssSelector("[data-test-id='search-result-count'], div[class*='search-result-summary'], div[class*='totalLeafCount'], div[class*='filter-summary'] b, div[class*='search-summary']");
-    private final By firstProductTitle = By.cssSelector("[data-test-id='product-card-name'], h3[type='comfort'], h3[class*='product-title'], h3[data-test-id='product-card-name'], h2[data-test-id='product-card-name']");
+    private final By resultItems = By.cssSelector(
+        "article[data-test-id='product-card'], li[id^='i'], div[data-test-id='product-card-container'], " +
+        "[data-test-id='product-card-name'], li[class*='productListContent'], ul[class*='productListContent'] > li, " +
+        "div[class*='product-list-item'], [data-test-id='product-card-item']"
+    );
+    private final By firstProductLink = By.cssSelector(
+        "article[data-test-id='product-card'] a, li[id^='i'] a, [data-test-id='product-card-container'] a, " +
+        "a[data-test-id='product-card-name'], a[data-test-id='product-card-link'], li[class*='productListContent'] a, " +
+        "ul[class*='productListContent'] > li a, div[class*='product-list-item'] a"
+    );
+    private final By resultCountLabel = By.cssSelector(
+        "[data-test-id='search-result-count'], div[class*='search-result-summary'], div[class*='totalLeafCount'], " +
+        "div[class*='filter-summary'] b, div[class*='search-summary'], span[class*='search-result-count']"
+    );
+    private final By firstProductTitle = By.cssSelector(
+        "[data-test-id='product-card-name'], h3[data-test-id='product-card-name'], h2[data-test-id='product-card-name'], " +
+        "article[data-test-id='product-card'] h3, article[data-test-id='product-card'] h2, article[data-test-id='product-card'] a[title], " +
+        "li[id^='i'] h3, li[id^='i'] h2, li[id^='i'] a[title], h3[type='comfort'], h3[class*='product-title'], " +
+        "div[data-test-id='product-card-container'] h3, [data-test-id='product-title'], a[data-test-id='product-card-link']"
+    );
     private final By noResultsContainer = By.cssSelector("div[class*='noResult'], div[class*='not-found'], [data-test-id='no-search-result'], div[class*='empty-search']");
     private final By noResultsMessage = By.xpath("//*[contains(text(), 'bulunamadı') or contains(text(), 'sonuç bulunamadı') or contains(text(), 'arama kriterlerine uygun')]");
    
@@ -58,17 +74,29 @@ public class SearchResultPage extends BasePage {
     );
 
     private final By allProductTitles = By.cssSelector(
-        "[data-test-id='product-card-name'], h3[class*='product-title'], h3[type='comfort'], h3[class*='title'], h2[class*='title'], article[data-test-id='product-card'] h3, li[id^='i'] h3, h3"
+        "[data-test-id='product-card-name'], h3[data-test-id='product-card-name'], h2[data-test-id='product-card-name'], " +
+        "article[data-test-id='product-card'] h3, article[data-test-id='product-card'] h2, article[data-test-id='product-card'] a[title], " +
+        "li[id^='i'] h3, li[id^='i'] h2, li[id^='i'] a[title], [data-test-id='product-title'], " +
+        "h3[class*='product-title'], h3[type='comfort'], h3[class*='title'], h2[class*='title'], " +
+        "div[data-test-id='product-card-container'] h3, a[data-test-id='product-card-link']"
     );
 
     @Step("Click the product in Search Result Page and switch to detail page")
     public ProductDetailPage clickFirstProduct() {
+        waitForProductsReload();
         try {
             wait.until(ExpectedConditions.elementToBeClickable(firstProductLink));
             click(firstProductLink);
         } catch (Exception e) {
-            wait.until(ExpectedConditions.elementToBeClickable(resultItems));
-            click(resultItems);
+            try {
+                WebElement item = wait.until(ExpectedConditions.elementToBeClickable(resultItems));
+                jsClick(item);
+            } catch (Exception ex) {
+                List<WebElement> links = driver.findElements(firstProductLink);
+                if (!links.isEmpty()) {
+                    jsClick(links.get(0));
+                }
+            }
         }
         switchToNewTab();
         return new ProductDetailPage(driver);
@@ -79,7 +107,8 @@ public class SearchResultPage extends BasePage {
         try {
             wait.until(ExpectedConditions.or(
                 ExpectedConditions.presenceOfElementLocated(resultItems),
-                ExpectedConditions.visibilityOfElementLocated(resultCountLabel)
+                ExpectedConditions.visibilityOfElementLocated(resultCountLabel),
+                ExpectedConditions.presenceOfElementLocated(allProductTitles)
             ));
         } catch (Exception ignored) {
         }
@@ -92,7 +121,11 @@ public class SearchResultPage extends BasePage {
                 }
             }
             List<WebElement> items = driver.findElements(resultItems);
-            return items.size();
+            if (!items.isEmpty()) {
+                return items.size();
+            }
+            List<WebElement> titleElements = driver.findElements(allProductTitles);
+            return titleElements.size();
         } catch (Exception e) {
             return driver.findElements(resultItems).size();
         }
@@ -100,15 +133,63 @@ public class SearchResultPage extends BasePage {
 
     @Step("Get first title from search result page")
     public String getFirstTitle() {
+        // 1. First attempt via getTopProductTitles
         try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(firstProductTitle)).getText();
-        } catch (Exception e) {
-            List<WebElement> items = driver.findElements(firstProductTitle);
-            if (!items.isEmpty()) {
-                return items.get(0).getText();
+            List<String> titles = getTopProductTitles(1);
+            if (!titles.isEmpty() && !titles.get(0).isEmpty()) {
+                return titles.get(0);
             }
-            return "";
+        } catch (Exception ignored) {
         }
+
+        // 2. Wait explicitly for non-empty title element
+        try {
+            WebDriverWait titleWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            String title = titleWait.until(d -> {
+                List<WebElement> elements = d.findElements(firstProductTitle);
+                for (WebElement el : elements) {
+                    try {
+                        String text = el.getText().trim();
+                        if (!text.isEmpty() && !text.equalsIgnoreCase("reklam") && !text.equalsIgnoreCase("sponsorlu")) {
+                            return text;
+                        }
+                        String titleAttr = el.getAttribute("title");
+                        if (titleAttr != null && !titleAttr.trim().isEmpty() && !titleAttr.equalsIgnoreCase("reklam")) {
+                            return titleAttr.trim();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+                return null;
+            });
+            if (title != null && !title.isEmpty()) {
+                return title;
+            }
+        } catch (Exception ignored) {
+        }
+
+        // 3. Fallback: check all product cards
+        try {
+            List<WebElement> cards = driver.findElements(resultItems);
+            for (WebElement card : cards) {
+                try {
+                    String cardText = card.getText().trim();
+                    if (!cardText.isEmpty()) {
+                        String[] lines = cardText.split("\\r?\\n");
+                        for (String line : lines) {
+                            String trimmed = line.trim();
+                            if (trimmed.length() > 3 && !trimmed.matches("^[0-9.,]+.*") && !trimmed.equalsIgnoreCase("reklam") && !trimmed.equalsIgnoreCase("sponsorlu")) {
+                                return trimmed;
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+        return "";
     }
 
     @Step("Check if no results message is displayed")

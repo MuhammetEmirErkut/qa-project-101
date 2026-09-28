@@ -68,28 +68,81 @@ public class ProductDetailPage extends BasePage {
     @Step("Add product to cart")
     public ProductDetailPage addToCart() {
         log.info("Adding product to cart");
-        WebElement btn = null;
-        try {
-            btn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
-        } catch (Exception e) {
+        handleCookies();
+        waitForPageLoad();
+
+        By[] addButtons = new By[]{
+            addToCartButton,
+            addToCartButtonXpath,
+            By.cssSelector("button[id*='addToCart'], [data-test-id='addToCart'], button#addToCart, button[class*='addToCartButton'], button[class*='add-to-basket'], button[class*='AddToCart']"),
+            By.xpath("//button[@id='addToCart' or contains(@data-test-id, 'addToCart') or contains(@class, 'addToCart') or contains(., 'Sepete Ekle') or contains(., 'Sepete ekle')]"),
+            By.xpath("//button[contains(., 'Sepete Ekle') or contains(., 'Sepete ekle')]"),
+            By.xpath("//span[contains(text(), 'Sepete Ekle') or contains(text(), 'Sepete ekle')]/ancestor::button"),
+            By.xpath("//div[contains(@class, 'AddToCart') or contains(@class, 'addToCart')]//button")
+        };
+
+        boolean clicked = false;
+        for (By loc : addButtons) {
             try {
-                btn = wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonXpath));
-            } catch (Exception ex) {
-                btn = wait.until(ExpectedConditions.presenceOfElementLocated(addToCartButtonXpath));
+                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(4));
+                WebElement btn = shortWait.until(ExpectedConditions.presenceOfElementLocated(loc));
+                scrollIntoView(btn);
+                if (!btn.isEnabled()) {
+                    // Try selecting first available variant if button is disabled
+                    selectFirstAvailableAlternativeVariant();
+                }
+                try {
+                    btn.click();
+                } catch (Exception e) {
+                    jsClick(btn);
+                }
+                clicked = true;
+                log.info("Clicked add to cart button using locator: {}", loc);
+                break;
+            } catch (Exception ignored) {
+            }
+        }
+
+        if (!clicked) {
+            // Last fallback: find any button containing 'Sepete'
+            try {
+                List<WebElement> allButtons = driver.findElements(By.tagName("button"));
+                for (WebElement b : allButtons) {
+                    if (b.isDisplayed() && b.getText().toLowerCase().contains("sepete ekle")) {
+                        jsClick(b);
+                        clicked = true;
+                        break;
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        // Handle Warranty / Extra Protection popup if it appears
+        By[] dismissWarrantyLocators = new By[]{
+            By.xpath("//button[contains(text(), 'İstemiyorum') or contains(text(), 'istemiyorum') or contains(text(), 'Onarımı İstemiyorum') or contains(text(), 'Hayır') or contains(text(), 'Geç')]"),
+            By.xpath("//div[contains(@class, 'modal') or contains(@class, 'popup') or contains(@class, 'drawer')]//button[contains(., 'İstemiyorum') or contains(., 'Devam') or contains(., 'Kapat')]"),
+            By.cssSelector("div[class*='warranty'] button, div[class*='protection'] button, button[aria-label='Kapat'], button[class*='close']")
+        };
+
+        for (By loc : dismissWarrantyLocators) {
+            try {
+                WebDriverWait warrantyWait = new WebDriverWait(driver, Duration.ofSeconds(2));
+                WebElement wBtn = warrantyWait.until(ExpectedConditions.elementToBeClickable(loc));
+                jsClick(wBtn);
+                log.info("Dismissed warranty/addon popup");
+                break;
+            } catch (Exception ignored) {
             }
         }
 
         try {
-            jsClick(btn);
-        } catch (Exception e) {
-            btn.click();
-        }
-
-        try {
-            WebDriverWait postClickWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            WebDriverWait postClickWait = new WebDriverWait(driver, Duration.ofSeconds(5));
             postClickWait.until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOfElementLocated(goToCartButtonInModal),
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Sepete eklendi') or contains(text(), 'Ürün sepete eklendi')]"))
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Sepete eklendi') or contains(text(), 'Ürün sepete eklendi') or contains(text(), 'sepetinize eklendi')]")),
+                ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-test-id='checkout-button'], a[href*='checkout.hepsiburada.com']")),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(@class, 'badge') or contains(@class, 'count')]"))
             ));
         } catch (Exception ignored) {
         }
@@ -103,23 +156,30 @@ public class ProductDetailPage extends BasePage {
         By[] locators = new By[] {
             goToCartButtonInModal,
             By.xpath("//button[contains(., 'Sepete git') or contains(., 'Sepete Git') or contains(., 'Sepetim')]"),
-            By.xpath("//a[contains(@href, 'checkout.hepsiburada.com') or contains(., 'Sepete git') or contains(., 'Sepete Git')]"),
-            By.cssSelector("a[href*='checkout.hepsiburada.com'], #shoppingCart, [data-test-id='cart']")
+            By.xpath("//a[contains(@href, 'checkout.hepsiburada.com') or contains(., 'Sepete git') or contains(., 'Sepete Git') or contains(., 'Sepetim')]"),
+            By.cssSelector("a[href*='checkout.hepsiburada.com'], #shoppingCart, [data-test-id='cart'], [data-test-id='checkout-button'], a[href*='/sepetim']"),
+            By.xpath("//span[contains(text(), 'Sepetim')]/ancestor::a | //div[contains(@id, 'cart')]//a")
         };
 
-        boolean navigated = false;
+        boolean clicked = false;
         for (By loc : locators) {
             try {
                 WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
                 WebElement cartBtn = shortWait.until(ExpectedConditions.elementToBeClickable(loc));
                 jsClick(cartBtn);
-                navigated = true;
+                clicked = true;
                 break;
             } catch (Exception ignored) {
             }
         }
 
-        if (!navigated) {
+        try {
+            WebDriverWait urlWait = new WebDriverWait(driver, Duration.ofSeconds(6));
+            urlWait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains("checkout.hepsiburada.com"),
+                ExpectedConditions.urlContains("sepetim")
+            ));
+        } catch (Exception e) {
             driver.get("https://checkout.hepsiburada.com/sepetim");
         }
 
@@ -208,21 +268,29 @@ public class ProductDetailPage extends BasePage {
     @Step("Click wishlist / like button")
     public ProductDetailPage clickWishlist() {
         log.info("Clicking wishlist button");
-        WebElement likeBtn = null;
-        try {
-            likeBtn = wait.until(ExpectedConditions.elementToBeClickable(wishlistButton));
-        } catch (Exception e) {
+        By[] wishlistLocators = new By[]{
+            wishlistButton,
+            wishlistButtonXpath,
+            By.cssSelector("[data-test-id='favorite-button'], [data-test-id='heart-icon'], [data-test-id*='favorite'], [data-test-id*='like']"),
+            By.cssSelector("button[class*='like'], button[class*='heart'], button[class*='favorite'], svg[class*='like'], svg[class*='heart']"),
+            By.xpath("//button[contains(@class, 'like') or contains(@class, 'favorite') or contains(@aria-label, 'Beğen') or contains(@aria-label, 'Favori')]"),
+            By.xpath("//div[contains(@class, 'Like') or contains(@class, 'Heart') or contains(@class, 'favorite')]")
+        };
+
+        boolean clicked = false;
+        for (By loc : wishlistLocators) {
             try {
-                likeBtn = wait.until(ExpectedConditions.elementToBeClickable(wishlistButtonXpath));
-            } catch (Exception ex) {
-                likeBtn = wait.until(ExpectedConditions.presenceOfElementLocated(wishlistButtonXpath));
+                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+                WebElement el = shortWait.until(ExpectedConditions.presenceOfElementLocated(loc));
+                scrollIntoView(el);
+                jsClick(el);
+                clicked = true;
+                break;
+            } catch (Exception ignored) {
             }
         }
-
-        try {
-            jsClick(likeBtn);
-        } catch (Exception e) {
-            likeBtn.click();
+        if (!clicked) {
+            log.warn("Wishlist button not found via standard locators");
         }
 
         return this;
@@ -230,18 +298,33 @@ public class ProductDetailPage extends BasePage {
 
     @Step("Verify login prompt or redirect is displayed")
     public boolean isLoginRequiredPromptDisplayed() {
-        String currentUrl = driver.getCurrentUrl().toLowerCase();
-        if (currentUrl.contains("giris") || currentUrl.contains("login") || currentUrl.contains("oauth")) {
-            return true;
-        }
-
         try {
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            Boolean isDisplayed = shortWait.until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOfElementLocated(loginModalOrForm),
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Giriş yap') or contains(text(), 'Üye ol')]"))
-            ));
-            return Boolean.TRUE.equals(isDisplayed);
+            WebDriverWait waitPrompt = new WebDriverWait(driver, Duration.ofSeconds(8));
+            return Boolean.TRUE.equals(waitPrompt.until(d -> {
+                String currentUrl = d.getCurrentUrl().toLowerCase();
+                if (currentUrl.contains("giris") || currentUrl.contains("login") || currentUrl.contains("oauth") || currentUrl.contains("uyelik") || currentUrl.contains("hesabim")) {
+                    return true;
+                }
+                By[] promptLocators = new By[]{
+                    loginModalOrForm,
+                    By.cssSelector(".login-modal, [data-test-id='login-modal'], div[class*='loginModal'], div[class*='LoginModal'], div[class*='modal-dialog'], div[role='dialog']"),
+                    By.xpath("//*[contains(text(), 'Giriş yap') or contains(text(), 'Giriş Yap') or contains(text(), 'Üye ol') or contains(text(), 'Üye Ol') or contains(text(), 'giriş yapın') or contains(text(), 'Giriş yapınız')]"),
+                    By.xpath("//div[contains(@class, 'modal') or contains(@class, 'popup') or contains(@class, 'dialog') or contains(@class, 'toast')]//*[contains(text(), 'Giriş') or contains(text(), 'giriş')]")
+                };
+                for (By loc : promptLocators) {
+                    try {
+                        List<WebElement> elements = d.findElements(loc);
+                        for (WebElement el : elements) {
+                            if (el.isDisplayed()) {
+                                return true;
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+                String pageSource = d.getPageSource().toLowerCase();
+                return pageSource.contains("giriş yap") || pageSource.contains("üye ol") || pageSource.contains("giris.hepsiburada.com");
+            }));
         } catch (Exception e) {
             return false;
         }

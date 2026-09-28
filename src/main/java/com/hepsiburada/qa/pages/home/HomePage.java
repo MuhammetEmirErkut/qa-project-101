@@ -18,7 +18,9 @@ import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
-    private final By searchInput = By.cssSelector("div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i]");
+    private final By searchInput = By.cssSelector("div[class*='searchBox'] input, div[class*='SearchBox'] input, [data-test-id='search-bar-input'], input[placeholder*='ürün' i], input[placeholder*='ara' i], input[type='text']");
+    private final By searchButton = By.cssSelector("div[class*='searchBox'] button, div[class*='SearchBox'] button, [data-test-id='search-button'], div[class*='searchIcon'], svg[class*='search'], div[class*='SearchBoxOld'] button");
+    private final By searchButtonXpath = By.xpath("//div[contains(@class, 'searchBox') or contains(@class, 'SearchBox')]//button | //div[contains(@class, 'searchIcon')] | //button[contains(., 'ARA') or contains(., 'Ara')]");
     private final By myAccountButton = By.cssSelector("#myAccount, [data-test-id='account'], div[class*='account-user']");
     private final By loginDropdownOption = By.cssSelector("#login, a[href*='giris.hepsiburada.com'], [data-test-id='login-button'], a[href*='login']");
     private final CookieBannerComponent cookieBanner;
@@ -60,8 +62,28 @@ public class HomePage extends BasePage {
 
                 WebElement activeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInput));
                 activeInput.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+                try {
+                    activeInput.clear();
+                } catch (Exception ignored) {
+                }
                 activeInput.sendKeys(keyword);
                 activeInput.sendKeys(Keys.ENTER);
+
+                try {
+                    WebDriverWait searchNavWait = new WebDriverWait(driver, Duration.ofSeconds(2));
+                    searchNavWait.until(ExpectedConditions.urlContains("ara?q="));
+                } catch (Exception e) {
+                    try {
+                        WebElement sBtn = driver.findElement(searchButton);
+                        jsClick(sBtn);
+                    } catch (Exception ex) {
+                        try {
+                            WebElement sBtnXpath = driver.findElement(searchButtonXpath);
+                            jsClick(sBtnXpath);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
 
                 return new SearchResultPage(driver);
             } catch (org.openqa.selenium.StaleElementReferenceException | org.openqa.selenium.ElementNotInteractableException e) {

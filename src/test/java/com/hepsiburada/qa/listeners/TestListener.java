@@ -68,7 +68,14 @@ public class TestListener implements ITestListener, ISuiteListener {
 
         WebDriver driver = DriverFactory.getDriver();
         if (driver == null) {
-            driver = com.hepsiburada.qa.drivers.MobileDriverFactory.getDriver();
+            try {
+                Class<?> mobileFactory = Class.forName("com.hepsiburada.qa.drivers.MobileDriverFactory");
+                java.lang.reflect.Method getDriverMethod = mobileFactory.getMethod("getDriver");
+                Object resultDriver = getDriverMethod.invoke(null);
+                if (resultDriver instanceof WebDriver) {
+                    driver = (WebDriver) resultDriver;
+                }
+            } catch (Exception ignored) { }
         }
         String currentUrl = "N/A";
         String pageTitle = "N/A";
