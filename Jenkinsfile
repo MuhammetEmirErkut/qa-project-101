@@ -72,6 +72,7 @@ pipeline {
                     if (params.EXECUTION_TYPE == 'GAUGE') {
                         echo "📐 Starting Gauge Specifications Suite with SpecsDir=${params.GAUGE_SPECS_DIR}"
                         sh """
+                            chmod +x ./gradlew
                             ./gradlew gauge -PspecsDir="${params.GAUGE_SPECS_DIR}"
                         """
                     } else if (params.EXECUTION_TYPE == 'MOBILE_WEB') {
